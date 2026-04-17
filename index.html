@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prathamesh Vichare | Portfolio 2026</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Oswald:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --maroon: #801525;
+            --cream: #F5F0E6;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { background-color: var(--cream); color: var(--maroon); font-family: 'Inter', sans-serif; overflow-x: hidden; }
+
+        /* ANIMATIONS */
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        section { padding: 80px 8%; position: relative; border-bottom: 1px solid rgba(128, 21, 37, 0.1); }
+        
+        .section-header { margin-bottom: 50px; }
+        .section-header h2 { font-family: 'Oswald', sans-serif; font-size: 3.5rem; text-transform: uppercase; line-height: 1; }
+        .page-num { display: block; text-align: right; font-size: 1.5rem; font-weight: 300; opacity: 0.6; }
+
+        /* HERO SECTION */
+        .hero {
+            background-color: var(--maroon);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: var(--cream);
+            text-align: center;
+        }
+        .hero h1 { font-family: 'Oswald', sans-serif; font-size: clamp(4rem, 12vw, 10rem); text-transform: uppercase; line-height: 0.9; }
+        .hero p { margin-top: 20px; letter-spacing: 5px; font-weight: 700; }
+
+        /* 01. INTRODUCTION */
+        .intro-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 60px; align-items: center; }
+        .about-text h3 { font-size: 2.5rem; margin-bottom: 20px; text-transform: uppercase; font-family: 'Oswald'; }
+        .about-text p { font-size: 1.1rem; line-height: 1.6; }
+
+        /* 02. EDUCATION BACKGROUND */
+        .education { background-color: var(--maroon); color: var(--cream); }
+        .edu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: 40px; }
+        .edu-card h3 { font-family: 'Oswald'; font-size: 3.5rem; margin-bottom: 10px; }
+        .edu-card p { font-weight: 300; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* 03. WORKING EXPERIENCE */
+        .exp-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 40px; }
+        .exp-item h4 { font-size: 1.8rem; font-family: 'Oswald'; margin-bottom: 5px; }
+        .exp-item span { display: block; font-weight: bold; margin-bottom: 10px; text-transform: uppercase; font-size: 0.8rem; }
+
+        /* 04. SKILL & EXPERTISE */
+        .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .skill-card { text-align: center; }
+        .skill-card h4 { margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* IMAGE PLACEHOLDERS */
+        .img-placeholder { 
+            background: #e9e2d5; border-radius: 8px; border: 1px solid rgba(128, 21, 37, 0.2); 
+            display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: bold;
+        }
+
+        /* PROJECT 05: MAGIC DECOR (7:5 Ratio, 8 Images) */
+        .magic-grid { display: grid; grid-template-columns: repeat(4, 2fr); gap: 15px; margin-top: 30px; }
+        .ratio-7-5 { aspect-ratio: 7 / 5; width: 100%; }
+
+        /* PROJECT 06: BABEAZE (Presentation Style) */
+        .babeaze-layout { display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: center; }
+        .babeaze-imgs { display: flex; gap: 15px; }
+        .babeaze-tall { aspect-ratio: 1/2; flex: 1; }
+
+        /* PROJECT 07: EGGS (9:16 Ratio, Horizontal Scroll) */
+        .eggs-scroll { display: flex; gap: 20px; overflow-x: auto; padding-bottom: 20px; scroll-snap-type: x mandatory; }
+        .ratio-9-16 { flex: 0 0 220px; aspect-ratio: 9 / 16; scroll-snap-align: start; }
+
+        /* FOOTER */
+        footer { background: var(--maroon); color: var(--cream); padding: 80px 8%; text-align: center; }
+        .social-icons { display: flex; justify-content: center; gap: 30px; margin: 30px 0; }
+        .social-icons a { color: var(--cream); font-size: 2.5rem; transition: 0.3s; }
+        .social-icons a:hover { transform: translateY(-5px); opacity: 0.8; }
+        .contact-details { font-weight: 700; letter-spacing: 1px; }
+
+        /* The outer container that hides the overflow */
+        .eggs-scroll-container {
+            width: 100%;
+            overflow: hidden;
+            padding: 40px 0;
+            position: relative;
+            /* Soft fade on edges for a fancy look */
+            mask-image: linear-gradient(to right, transparent, black 1%, black 99%, transparent);
+        }
+
+        /* The moving track */
+        .eggs-track {
+            display: flex;
+            width: calc(280px * 12 + 240px); /* (Image width * total images) + (gap * total images) */
+            gap: 20px;
+            animation: scrollInfinite 30s linear infinite;
+        }
+
+        /* Pause the scroll when someone hovers to look at your work! */
+        .eggs-track:hover {
+            animation-play-state: paused;
+        }
+
+        .ratio-9-16 {
+            flex: 0 0 280px;
+            aspect-ratio: 7 / 16;
+            background: #F2E9E1;
+            border-radius: 25px;
+            box-shadow: 0 8px 20px rgba(157, 45, 60, 0.1);
+            overflow: hidden;
+        }
+
+        .ratio-9-16 img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Keyframes for the loop */
+        @keyframes scrollInfinite {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                /* Move it by exactly half (the first set of images) */
+                transform: translateX(calc(-280px * 6 - 120px)); 
+            }
+        }
+
+        @media (max-width: 768px) {
+            .intro-grid, .edu-grid, .exp-grid, .skills-grid, .babeaze-layout, .magic-grid { grid-template-columns: 1fr; }
+            .magic-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        /* 1. CINEMATIC HERO BASE */
+        .hero {
+            background-color: var(--maroon);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: var(--cream);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            perspective: 1000px;
+        }
+
+        /* 2. DYNAMIC MOUSE GLOW (Flashlight Effect) */
+        .hero-glow {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(245, 240, 230, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1;
+            transform: translate(-50%, -50%);
+        }
+
+        /* 3. FLOATING DECO SHAPES (Children-Friendly/Creative) */
+        .shape {
+            position: absolute;
+            border: 2px solid rgba(245, 240, 230, 0.1);
+            border-radius: 50%;
+            animation: float 10s infinite ease-in-out;
+            z-index: 0;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+        }
+
+        /* 4. REVEALING TYPOGRAPHY */
+        .hero h1 { 
+            font-family: 'Oswald', sans-serif; 
+            font-size: clamp(5rem, 18vw, 14rem); 
+            text-transform: uppercase; 
+            line-height: 0.75; 
+            z-index: 2;
+            letter-spacing: -4px;
+            font-weight: 900;
+            transition: 0.4s;
+            animation: heroReveal 1.2s cubic-bezier(0.2, 1, 0.3, 1);
+        }
+
+        @keyframes heroReveal {
+            0% { opacity: 0; transform: translateY(100px) skewY(10deg); }
+            100% { opacity: 1; transform: translateY(0) skewY(0deg); }
+        }
+
+        .hero h1:hover {
+            letter-spacing: 10px;
+            color: transparent;
+            -webkit-text-stroke: 2px var(--cream);
+        }
+
+        /* 5. FLOATING GLASS BADGE */
+        .hero-badge {
+            margin-top: 30px;
+            background: rgba(245, 240, 230, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(245, 240, 230, 0.2);
+            padding: 10px 30px;
+            border-radius: 100px;
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            z-index: 2;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            animation: bounce 3s infinite ease-in-out;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="hero" id="hero">
+        <div class="hero-glow" id="glow"></div>
+
+        <div class="shape" style="width: 100px; height: 100px; top: 20%; left: 15%;"></div>
+        <div class="shape" style="width: 150px; height: 150px; bottom: 15%; right: 10%; animation-delay: 2s;"></div>
+        
+        <div class="year" style="position: absolute; top: 40px; left: 40px; opacity: 0.4; font-family: 'Oswald';">ESTD. 2026</div>
+
+        <h1>PORTFOLIO</h1>
+        
+        <div class="hero-badge">
+            Presented by Prathamesh Vichare
+        </div>
+
+        <div style="position: absolute; bottom: 40px; display: flex; flex-direction: column; align-items: center; gap: 10px; opacity: 0.6;">
+            <div style="width: 1px; height: 60px; background: var(--cream);"></div>
+            <span style="font-size: 0.7rem; letter-spacing: 3px;">SCROLL</span>
+        </div>
+    </div>
+
+    <section class="reveal">
+        <span class="page-num">01</span>
+        <div class="intro-grid">
+            <div style="aspect-ratio: 1/1;">
+                <img src="img/intro.png" alt="Prathamesh Character Art" style="width: 100%; height: 100%; object-fit: cover; border-radius: 25px;">
+	        </div>
+            <div class="section-header">
+                <h2>Hello! My Name is Prathamesh Vichare</h2>
+                <p style="margin-top: 20px; font-size: large;">Results-driven Graphic & Visual Designer with 2+ years of professional experience and 3+ years freelancing. Created 50+ wallpaper designs for global platforms, worked with 20+ clients, and delivered branding, UI/UX, and game asset projects. Skilled in Inkscape, Blender, Figma, Adobe Illustrator, Canva, and Krita.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="education reveal">
+        <span class="page-num">02</span>
+        <div class="section-header"><h2>Education Background</h2></div>
+        <div class="edu-grid">
+            <div class="edu-card"><h3>2019</h3><p>Higher Secondary Certificate</p></div>
+            <div class="edu-card"><h3>2022</h3><p>Bachelor of Information Technology</p></div>
+            <div class="edu-card"><h3>2024</h3><p>Master of Computer Application</p></div>
+        </div>
+    </section>
+
+    <section class="reveal">
+        <span class="page-num">03</span>
+        <div class="section-header"><h2>Working Experience</h2></div>
+        <div class="exp-grid">
+            <div class="exp-item"><h4>2025</h4><span>Magic Decor</span>
+                <ul style="margin-left: 20px; margin-bottom: 30px; text-align: justify;">
+                    <li>Designed 100+ print-ready wallpaper artworks — repeat patterns, murals, and custom designs — for residential and commercial décor sold worldwide.</li>
+                    <li>Solely responsible for creating the complete wallpaper design library for the company's global .com e-commerce website launch.</li>
+                    <li>Executed client-specific wallpaper briefs end-to-end, from concept and colour exploration through to print-ready file delivery.</li>
+                </ul>
+            </div>
+            <div class="exp-item"><h4>2024</h4><span>Stacklab.in</span>
+                <ul style="margin-left: 20px; margin-bottom: 30px; text-align: justify;">
+                    <li>Created high-quality vector and 3D assets for game environments, contributing to richer visual storytelling and improved player engagement.</li>
+                    <li>Designed and delivered social media content that boosted brand visibility and audience interaction across multiple platforms.</li>
+                    <li>Worked within a cross-functional team to meet project deadlines and incorporate iterative design feedback efficiently.</li>
+                </ul>
+            </div>
+            <div class="exp-item"><h4>2021</h4><span>Freelancing</span>
+                <ul style="margin-left: 20px; margin-bottom: 30px; text-align: justify;">
+                    <li>Delivered wallpaper and surface pattern design projects for 20+ clients, covering digital display and commercial print formats.</li>
+                    <li>Produced 10+ social media branding packages — posts, banners, and identity creatives — for small businesses and personal brands.</li>
+                    <li>Designed 2D/3D game assets and UI elements for indie developers, spanning sprites, backgrounds, and interface components.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="reveal">
+        <span class="page-num">04</span>
+        <div class="section-header"><h2>Skill & Expertise</h2></div>
+        <div class="skills-grid">
+            <div class="skill-card"><h4>Digital Drawings</h4><div style="aspect-ratio: 1/1;">
+                <a href="https://drive.google.com/drive/folders/1BvUEse9Tgruj8d1aeK2pjczvnM1eAc2v?usp=drive_link" target="_blank" style="text-decoration: none;">
+                    <img src="img/dd.jpg" alt="Prathamesh Character Art" style="width: 100%; height: 100%; object-fit: cover; border-radius: 25px;">
+                </a>
+            </div></div>
+            <div class="skill-card"><h4>Social Media Design</h4><div style="aspect-ratio: 1/1;">
+                <a href="https://drive.google.com/drive/folders/1LH3H0ZsxTJGZYefXeI3c_OTlElj6oyZW?usp=drive_link" target="_blank" style="text-decoration: none;">
+                    <img src="img/sm.jpg" alt="Prathamesh Character Art" style="width: 100%; height: 100%; object-fit: cover; border-radius: 25px;">
+                </a>
+            </div></div>
+            <div class="skill-card"><h4>UI/UX</h4><div style="aspect-ratio: 1/1;">
+                <a href="https://drive.google.com/drive/folders/1eB9S5PhBXd1cgIAu3HrcOXfhfGpLKikj?usp=drive_link" target="_blank" style="text-decoration: none;">
+                    <img src="img/uiux.jpg" alt="Prathamesh Character Art" style="width: 100%; height: 100%; object-fit: cover; border-radius: 25px;">
+                </a>
+            </div></div>
+        </div>
+    </section>
+
+    <section class="reveal">
+        <span class="page-num">05</span>
+        <div class="section-header"><h2>Global Website Wallpaper Collection</h2></div>
+        <ul style="margin-left: 20px; margin-bottom: 30px;">
+            <li>Sole designer hired to create 80+ original wallpaper designs for Magic Decor's worldwide .com e commerce launch. </li>
+            <li>Delivered designs spanning multiple styles, colour themes, and pattern categories to serve an international customer base.</li>
+            <li>All designs were produced print-ready and optimised for digital display at commercial scale.</li>
+        </ul>
+        <div class="magic-grid">
+            <div>
+                <img src="img/p1/1.jpg" alt="Prathamesh Character Art" style="width: 100%; height: 100%; object-fit: cover; border-radius: 25px;">
+            </div>
+            <div>
+                <img src="img/p1/2.jpg" alt="Prathamesh Character Art" style="width: 100%; height: 100%; object-fit: cover; border-radius: 25px;">
+            </div>
+            <div>
+                <img src="img/p1/3.jpg" alt="Prathamesh Character Art" style="width: 100%; height: 100%; object-fit: cover; border-radius: 25px;">
+            </div>
+            <div>
+                <img src="img/p1/4.jpg" alt="Prathamesh Character Art" style="width: 100%; height: 100%; object-fit: cover; border-radius: 25px;">
+            </div>
+            <div>
+                <img src="img/p1/5.jpg" alt="Prathamesh Character Art" style="width: 100%; height: 100%; object-fit: cover; border-radius: 25px;">
+            </div>
+            <div>
+                <img src="img/p1/6.jpg" alt="Prathamesh Character Art" style="width: 100%; height: 100%; object-fit: cover; border-radius: 25px;">
+            </div>
+            <div>
+                <img src="img/p1/7.jpg" alt="Prathamesh Character Art" style="width: 100%; height: 100%; object-fit: cover; border-radius: 25px;">
+            </div>
+            <div>
+                <img src="img/p1/8.jpg" alt="Prathamesh Character Art" style="width: 100%; height: 100%; object-fit: cover; border-radius: 25px;">
+            </div>
+        </div>
+    </section>
+
+    <section class="reveal">
+        <span class="page-num">06</span>
+        <div class="babeaze-layout">
+            <div class="babeaze-imgs">
+                <div class="img-placeholder babeaze-tall">
+                    <img src="img/p2/2 FINAL_1.jpg" alt="Prathamesh Character Art" style="width: 100%; height: 100%; object-fit: cover; border-radius: 25px;">
+                </div>
+                <div class="img-placeholder babeaze-tall">
+                    <img src="img/p2/Customer design hop scotch .jpg" alt="Prathamesh Character Art" style="width: 100%; height: 100%; object-fit: cover; border-radius: 25px;">
+                </div>
+            </div>
+            <div>
+<div class="section-header"><h2>Babeaze — Wallpaper Collection</h2></div>                
+                <p style="margin-top: 20px;">Designed a vibrant and brand-aligned photobooth backdrop wallpaper for Babeaze, a kids-focused brand. The design focuses on creating a fun, colourful, and visually engaging background that complements the brand's playful identity. The backdrop was crafted to be camera-friendly and visually striking, ensuring every photo taken against it feels lively, cheerful, and perfectly on-brand for families and little ones.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="reveal">
+        <span class="page-num">07</span>
+        <div class="section-header"><h2>Mr. & Mrs. Eggs — 2D Mobile Game</h2></div>
+<ul style="margin-left: 20px; margin-bottom: 30px;">
+            <li>Designed complete 2D game assets, character sprites, and UI/UX elements for a side-scrolling adventure game where a hero journeys across different seasons of Earth to rescue his kidnapped wife.</li>
+            <li>Collaborated closely with the development team to ensure assets were optimised and seamlessly integrated into the game environment.</li>
+	    <li>Created intuitive and visually engaging in-game UI that enhanced navigation and overall player experience across multiple seasonal levels.</li>
+        </ul>
+        <div class="eggs-scroll-container">
+            <div class="eggs-track">
+                <div class="ratio-9-16"><img src="img/p3/1.png" alt="UI 1"></div>
+                <div class="ratio-9-16"><img src="img/p3/2.png" alt="UI 2"></div>
+                <div class="ratio-9-16"><img src="img/p3/3.png" alt="UI 3"></div>
+                <div class="ratio-9-16"><img src="img/p3/4.png" alt="UI 4"></div>
+                <div class="ratio-9-16"><img src="img/p3/5.png" alt="UI 5"></div>
+                <div class="ratio-9-16"><img src="img/p3/6.png" alt="UI 6"></div>
+                <div class="ratio-9-16"><img src="img/p3/7.png" alt="UI 7"></div>
+                <div class="ratio-9-16"><img src="img/p3/8.png" alt="UI 8"></div>
+
+                <div class="ratio-9-16"><img src="img/p3/1.png" alt="UI 1"></div>
+                <div class="ratio-9-16"><img src="img/p3/2.png" alt="UI 2"></div>
+                <div class="ratio-9-16"><img src="img/p3/3.png" alt="UI 3"></div>
+                <div class="ratio-9-16"><img src="img/p3/4.png" alt="UI 4"></div>
+                <div class="ratio-9-16"><img src="img/p3/5.png" alt="UI 5"></div>
+                <div class="ratio-9-16"><img src="img/p3/6.png" alt="UI 6"></div>
+                <div class="ratio-9-16"><img src="img/p3/7.png" alt="UI 7"></div>
+                <div class="ratio-9-16"><img src="img/p3/8.png" alt="UI 8"></div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <h2>LET'S WORK TOGETHER AND CREATE SOMETHING GREAT!</h2>
+        <div class="social-icons">
+            <a href="https://instagram.com/_PRATHAMESH_7121_"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="tel:+917822036072"><i class="fa-solid fa-phone"></i></a>
+        </div>
+        <div class="contact-details">
+            <p>PRATHAMESH7121@GMAIL.COM</p>
+            <p>+91 7822036072</p>
+        </div>
+    </footer>
+
+    <script>
+        const hero = document.getElementById('hero');
+        const glow = document.getElementById('glow');
+        const title = document.querySelector('.hero h1');
+
+        hero.addEventListener('mousemove', (e) => {
+            // Move the glow
+            glow.style.left = e.pageX + 'px';
+            glow.style.top = e.pageY + 'px';
+
+            // Parallax effect for the title
+            const xPos = (window.innerWidth / 2 - e.pageX) / 25;
+            const yPos = (window.innerHeight / 2 - e.pageY) / 25;
+            title.style.transform = `rotateY(${xPos}deg) rotateX(${yPos}deg)`;
+        });
+
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                if (elementTop < windowHeight - 100) { reveals[i].classList.add("active"); }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        reveal();
+    </script>
+</body>
+</html>
