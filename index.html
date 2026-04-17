@@ -228,6 +228,52 @@
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-10px); }
         }
+
+        /* SOFTWARE SECTION STYLES */
+        .software-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 30px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .soft-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .soft-card img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            border-radius: 18px; /* Matches the rounded look of your PPT icons */
+            padding: 10px;
+            background: white;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+        }
+
+        .soft-card span {
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--maroon);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Creative Hover Animation */
+        .soft-card:hover {
+            transform: scale(1.1) translateY(-10px);
+        }
+
+        .soft-card:hover img {
+            box-shadow: 0 15px 30px rgba(128, 21, 37, 0.2);
+            background: var(--cream);
+        }
+
     </style>
 </head>
 <body>
@@ -327,6 +373,42 @@
 
     <section class="reveal">
         <span class="page-num">05</span>
+        <div class="section-header"><h2>Software Toolkit</h2></div>
+        
+        <div class="software-grid">
+            <div class="soft-card">
+                <img src="img/p0/1.png" alt="Adobe Photoshop">
+                <span>Photoshop</span>
+            </div>
+            <div class="soft-card">
+                <img src="img/p0/2.png" alt="Adobe Illustrator">
+                <span>Illustrator</span>
+            </div>
+            <div class="soft-card">
+                <img src="img/p0/3.png" alt="Figma">
+                <span>Figma</span>
+            </div>
+            <div class="soft-card">
+                <img src="img/p0/4.png" alt="Inkscape">
+                <span>Inkscape</span>
+            </div>
+            <div class="soft-card">
+                <img src="img/p0/5.png" alt="Krita">
+                <span>Krita</span>
+            </div>
+            <div class="soft-card">
+                <img src="img/p0/6.png" alt="Blender">
+                <span>Blender</span>
+            </div>
+            <div class="soft-card">
+                <img src="img/p0/7.png" alt="Canva">
+                <span>Canva</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="reveal">
+        <span class="page-num">06</span>
         <div class="section-header"><h2>Global Website Wallpaper Collection</h2></div>
         <ul style="margin-left: 20px; margin-bottom: 30px;">
             <li>Sole designer hired to create 80+ original wallpaper designs for Magic Decor's worldwide .com e commerce launch. </li>
@@ -362,7 +444,7 @@
     </section>
 
     <section class="reveal">
-        <span class="page-num">06</span>
+        <span class="page-num">07</span>
         <div class="babeaze-layout">
             <div class="babeaze-imgs">
                 <div class="img-placeholder babeaze-tall">
@@ -380,7 +462,7 @@
     </section>
 
     <section class="reveal">
-        <span class="page-num">07</span>
+        <span class="page-num">08</span>
         <div class="section-header"><h2>Mr. & Mrs. Eggs — 2D Mobile Game</h2></div>
 <ul style="margin-left: 20px; margin-bottom: 30px;">
             <li>Designed complete 2D game assets, character sprites, and UI/UX elements for a side-scrolling adventure game where a hero journeys across different seasons of Earth to rescue his kidnapped wife.</li>
