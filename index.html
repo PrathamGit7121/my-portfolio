@@ -1,0 +1,2152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prathamesh Vichare — Graphic Design, UI/UX & Branding Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #05060a;
+      --card-bg: rgba(16, 18, 27, 0.78);
+      --border: rgba(255, 255, 255, 0.08);
+      --text: #f5f7fa;
+      --muted: #949cb0;
+      --purple: #7c5cff;
+      --cyan: #00e5ff;
+      --pink: #ff3e8a;
+      --font-display: 'Syne', sans-serif;
+      --font-heading: 'Space Grotesk', sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; background: var(--bg); color: var(--text); font-family: var(--font-body); }
+    body { overflow-x: hidden; background: var(--bg); }
+
+    /* Top Scroll Progress Bar */
+    .scroll-progress {
+      position: fixed;
+      top: 0; left: 0; height: 3px; width: 0%;
+      background: linear-gradient(90deg, var(--cyan), var(--purple), var(--pink));
+      z-index: 9999;
+      box-shadow: 0 0 14px var(--cyan);
+    }
+
+    /* Ambient Floating Aurora Orbs & Geometric Wireframes */
+    .ambient-stage {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .aurora-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(115px);
+      opacity: 0.26;
+      will-change: transform;
+    }
+    .orb-1 {
+      width: 520px; height: 520px;
+      background: radial-gradient(circle, var(--purple), transparent 70%);
+      top: -120px; left: -100px;
+      animation: floatOrb1 18s ease-in-out infinite alternate;
+    }
+    .orb-2 {
+      width: 460px; height: 460px;
+      background: radial-gradient(circle, var(--cyan), transparent 70%);
+      top: 28%; right: -120px;
+      animation: floatOrb2 22s ease-in-out infinite alternate;
+    }
+    .orb-3 {
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, var(--pink), transparent 70%);
+      bottom: -140px; left: 25%;
+      opacity: 0.16;
+      animation: floatOrb3 25s ease-in-out infinite alternate;
+    }
+    @keyframes floatOrb1 {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(90px, 70px) scale(1.15); }
+    }
+    @keyframes floatOrb2 {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(-80px, -60px) scale(1.12); }
+    }
+    @keyframes floatOrb3 {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(70px, -80px) scale(1.18); }
+    }
+
+    /* Floating Design Wireframe Nodes */
+    .geo-node {
+      position: absolute;
+      opacity: 0.18;
+      animation: spinSlow 36s linear infinite;
+    }
+    .geo-1 { top: 14%; right: 6%; width: 110px; height: 110px; }
+    .geo-2 { top: 62%; left: 3%; width: 90px; height: 90px; animation-direction: reverse; animation-duration: 28s; }
+    @keyframes spinSlow {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* Interactive Constellation Canvas */
+    #constellationCanvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Dynamic Spotlight Ring Cursor */
+    .cursor-dot {
+      position: fixed;
+      width: 6px; height: 6px;
+      background: var(--cyan);
+      border-radius: 50%;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      z-index: 10000;
+      transition: opacity 0.2s;
+    }
+
+    .cursor-ring {
+      position: fixed;
+      width: 38px; height: 38px;
+      border: 1.5px solid rgba(0, 229, 255, 0.55);
+      border-radius: 50%;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      z-index: 9999;
+      display: grid;
+      place-items: center;
+      font-family: var(--font-heading);
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: #05060a;
+      transition: width 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+                  height 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+                  background 0.28s ease,
+                  border-color 0.28s ease;
+    }
+
+    .cursor-ring.active-label {
+      width: 96px; height: 96px;
+      background: rgba(0, 229, 255, 0.94);
+      border-color: var(--cyan);
+      box-shadow: 0 0 32px rgba(0, 229, 255, 0.5);
+    }
+
+    @media (max-width: 768px) {
+      .cursor-dot, .cursor-ring { display: none; }
+    }
+
+    /* Click Particle Sparkles */
+    .sparkle-particle {
+      position: fixed;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 10001;
+      animation: sparkleBurst 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes sparkleBurst {
+      0% { transform: translate(0, 0) scale(1); opacity: 1; }
+      100% { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; }
+    }
+
+    /* Navbar */
+    .navbar {
+      position: fixed; top: 0; width: 100%;
+      padding: 1rem 5%;
+      display: flex; justify-content: space-between; align-items: center;
+      background: rgba(5, 6, 10, 0.8);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+    }
+
+    .brand-logo {
+      font-family: var(--font-display);
+      font-size: 1.55rem; font-weight: 800;
+      color: var(--text); text-decoration: none;
+      letter-spacing: -0.03em;
+      transition: transform 0.25s;
+    }
+    .brand-logo:hover { transform: scale(1.05); }
+    .brand-logo span { color: var(--cyan); }
+
+    .nav-menu { display: flex; gap: 2rem; }
+    .nav-menu a {
+      position: relative;
+      color: var(--muted); text-decoration: none;
+      font-family: var(--font-heading); font-size: 0.92rem; font-weight: 500;
+      transition: color 0.25s;
+      padding-bottom: 4px;
+    }
+    .nav-menu a::after {
+      content: "";
+      position: absolute;
+      left: 0; bottom: 0;
+      width: 0%; height: 2px;
+      background: linear-gradient(90deg, var(--cyan), var(--purple));
+      transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .nav-menu a:hover { color: var(--text); }
+    .nav-menu a:hover::after { width: 100%; }
+
+    .behance-pill {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.6rem 1.25rem; border-radius: 999px;
+      background: linear-gradient(135deg, #1769ff, #0050e0);
+      color: #fff; text-decoration: none;
+      font-family: var(--font-heading); font-size: 0.88rem; font-weight: 600;
+      box-shadow: 0 8px 24px rgba(23, 105, 255, 0.35);
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s;
+      will-change: transform;
+    }
+    .behance-pill:hover {
+      box-shadow: 0 12px 30px rgba(23, 105, 255, 0.6);
+    }
+
+    .nav-socials {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .social-icon-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      color: var(--text);
+      display: grid;
+      place-items: center;
+      text-decoration: none;
+      transition: transform 0.25s, border-color 0.25s, background 0.25s, color 0.25s;
+    }
+
+    .social-icon-btn:hover {
+      transform: translateY(-2px) scale(1.06);
+      border-color: var(--cyan);
+      background: rgba(0, 229, 255, 0.12);
+      color: var(--cyan);
+    }
+
+    .social-icon-btn.ig:hover {
+      border-color: var(--pink);
+      background: rgba(255, 62, 138, 0.12);
+      color: var(--pink);
+    }
+
+    .social-pill-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.82rem 1.35rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      color: var(--text);
+      text-decoration: none;
+      font-family: var(--font-heading);
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s, background 0.25s;
+      will-change: transform;
+    }
+
+    .social-pill-link:hover {
+      background: rgba(255, 255, 255, 0.09);
+      border-color: var(--cyan);
+    }
+
+    .social-pill-link.ig:hover {
+      border-color: var(--pink);
+    }
+
+    /* =========================================================================
+       HERO SPLIT LAYOUT (Fixes Text Overlap Completely + Fanned Collage)
+       ========================================================================= */
+    .hero {
+      position: relative;
+      z-index: 2;
+      min-height: 94vh;
+      max-width: 1380px;
+      margin: 0 auto;
+      padding: 8rem 5% 4rem;
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+      gap: clamp(2rem, 4vw, 4rem);
+      align-items: center;
+    }
+
+    .hero-left {
+      min-width: 0; /* Prevents grid blowout & ensures headline wraps cleanly without overlapping right column */
+      position: relative;
+      z-index: 3;
+    }
+
+    .status-chip {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      padding: 0.46rem 1rem; border-radius: 999px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      font-size: 0.82rem; color: var(--muted);
+      width: fit-content; max-width: 100%;
+      margin-bottom: 1.5rem;
+      animation: fadeSlideDown 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes fadeSlideDown {
+      from { opacity: 0; transform: translateY(-14px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .status-dot {
+      width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+      background: #00f59b; box-shadow: 0 0 12px #00f59b;
+      animation: pulseGlow 2s infinite;
+    }
+    @keyframes pulseGlow {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.45); opacity: 0.55; }
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 3.85vw, 4.15rem);
+      font-weight: 800;
+      line-height: 1.06;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.4rem;
+      word-wrap: break-word;
+    }
+    .mask-line { display: block; overflow: hidden; padding-bottom: 0.04em; }
+    .mask-text {
+      display: block;
+      transform: translateY(112%);
+      animation: revealMask 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .mask-line:nth-child(2) .mask-text { animation-delay: 0.12s; }
+    .mask-line:nth-child(3) .mask-text { animation-delay: 0.24s; }
+
+    @keyframes revealMask { to { transform: translateY(0); } }
+
+    .aurora-text {
+      background: linear-gradient(90deg, var(--cyan), var(--purple), var(--pink), var(--cyan));
+      background-size: 250% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: revealMask 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.12s forwards, auroraFlow 5s linear infinite;
+    }
+    @keyframes auroraFlow {
+      0% { background-position: 0% center; }
+      100% { background-position: 250% center; }
+    }
+
+    .hero-desc {
+      max-width: 600px;
+      font-size: clamp(0.98rem, 1.1vw, 1.08rem);
+      line-height: 1.65;
+      color: var(--muted);
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeUpSimple 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.35s forwards;
+    }
+    .hero-desc strong { color: var(--text); }
+
+    .hero-actions {
+      display: flex; gap: 0.85rem; flex-wrap: wrap; margin-bottom: 2.3rem;
+      opacity: 0;
+      animation: fadeUpSimple 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.45s forwards;
+    }
+    @keyframes fadeUpSimple {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .btn-main {
+      padding: 0.85rem 1.75rem; border-radius: 999px;
+      background: linear-gradient(135deg, var(--purple), #5230ff);
+      color: #fff; text-decoration: none;
+      font-family: var(--font-heading); font-weight: 600; font-size: 0.92rem;
+      box-shadow: 0 10px 30px rgba(124, 92, 255, 0.4);
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s;
+      will-change: transform;
+    }
+    .btn-main:hover { box-shadow: 0 14px 36px rgba(124, 92, 255, 0.65); }
+
+    .btn-ghost {
+      padding: 0.85rem 1.55rem; border-radius: 999px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      color: var(--text); text-decoration: none;
+      font-family: var(--font-heading); font-weight: 600; font-size: 0.92rem;
+      transition: background 0.25s, border-color 0.25s, transform 0.25s;
+      will-change: transform;
+    }
+    .btn-ghost:hover { background: rgba(255, 255, 255, 0.09); border-color: rgba(255, 255, 255, 0.25); }
+
+    /* Core Tools Strip */
+    .tools-dock {
+      display: flex; gap: 0.75rem; flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUpSimple 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.55s forwards;
+    }
+    .tool-chip {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      padding: 0.58rem 1rem; border-radius: 13px;
+      background: rgba(255, 255, 255, 0.035);
+      border: 1px solid var(--border);
+      font-family: var(--font-heading); font-size: 0.86rem; font-weight: 500;
+      transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+    }
+    .tool-chip:hover {
+      transform: translateY(-4px);
+      border-color: rgba(0, 229, 255, 0.5);
+      box-shadow: 0 10px 24px rgba(0, 229, 255, 0.12);
+    }
+    .badge-ic {
+      width: 24px; height: 24px; border-radius: 6px;
+      display: grid; place-items: center; font-weight: 700; font-size: 0.74rem;
+    }
+    .ic-ps { background: #001e36; color: #31a8ff; border: 1px solid #31a8ff; }
+    .ic-ai { background: #330000; color: #ff9a00; border: 1px solid #ff9a00; }
+    .ic-cd { background: #0b2e13; color: #4cd964; border: 1px solid #4cd964; }
+    .ic-fg { background: #1e192b; color: #a259ff; border: 1px solid #a259ff; }
+
+    /* Right-Side Hero Selected Work Fanned Collage */
+    .hero-right {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      z-index: 2;
+      opacity: 0;
+      animation: fadeUpSimple 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+    }
+
+    .collage-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.15rem;
+      padding: 0 0.25rem;
+    }
+    .collage-kicker {
+      font-family: var(--font-heading);
+      font-size: 0.76rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      color: var(--muted);
+    }
+    .collage-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+    .collage-counter {
+      font-family: var(--font-heading);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      color: var(--text);
+    }
+    .shuffle-mini-btn {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border);
+      color: var(--cyan);
+      padding: 0.28rem 0.65rem;
+      border-radius: 999px;
+      font-family: var(--font-heading);
+      font-size: 0.72rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+    .shuffle-mini-btn:hover {
+      background: var(--cyan);
+      color: #05060a;
+      border-color: var(--cyan);
+      transform: scale(1.05);
+    }
+
+    .fanned-stage {
+      position: relative;
+      width: 100%;
+      height: 390px;
+      display: grid;
+      place-items: center;
+    }
+    /* Subtle radial ring behind fanned cards */
+    .fanned-stage::before {
+      content: "";
+      position: absolute;
+      width: 330px;
+      height: 330px;
+      border-radius: 50%;
+      border: 1px solid rgba(124, 92, 255, 0.22);
+      background: radial-gradient(circle, rgba(124, 92, 255, 0.1), transparent 70%);
+      pointer-events: none;
+    }
+
+    .fan-card {
+      position: absolute;
+      width: min(335px, 84%);
+      aspect-ratio: 16 / 10;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      box-shadow: 0 24px 50px rgba(0, 0, 0, 0.7);
+      cursor: pointer;
+      transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+                  box-shadow 0.4s ease,
+                  border-color 0.3s ease;
+      background: #0d101b;
+    }
+
+    /* Card 1 (Back-Top Right Tilt - e.g. Kumo Matcha) */
+    .fan-card.pos-back {
+      transform: translate(18px, -74px) rotate(6.5deg) scale(0.95);
+      z-index: 1;
+    }
+    /* Card 2 (Middle-Left Tilt - e.g. StorySprout) */
+    .fan-card.pos-mid {
+      transform: translate(-22px, -6px) rotate(-5.5deg) scale(0.98);
+      z-index: 2;
+    }
+    /* Card 3 (Front-Bottom Tilt - e.g. Scoop Parade / Featured) */
+    .fan-card.pos-front {
+      transform: translate(12px, 68px) rotate(2.5deg) scale(1.01);
+      z-index: 3;
+      border-color: rgba(0, 229, 255, 0.35);
+    }
+
+    /* Interactive Fan-Out on Stage Hover */
+    .fanned-stage:hover .fan-card.pos-back {
+      transform: translate(28px, -92px) rotate(9deg) scale(0.97);
+    }
+    .fanned-stage:hover .fan-card.pos-mid {
+      transform: translate(-34px, -8px) rotate(-8deg) scale(1);
+    }
+    .fanned-stage:hover .fan-card.pos-front {
+      transform: translate(16px, 84px) rotate(3.5deg) scale(1.03);
+    }
+
+    .fan-card:hover {
+      z-index: 10 !important;
+      border-color: var(--cyan);
+      box-shadow: 0 30px 65px rgba(0, 229, 255, 0.25);
+    }
+
+    .fan-featured-pill {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      padding: 0.34rem 0.78rem;
+      border-radius: 8px;
+      background: rgba(5, 6, 10, 0.86);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      font-family: var(--font-heading);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: #ffffff;
+      z-index: 4;
+      pointer-events: none;
+    }
+
+    .collage-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      margin-top: 1.15rem;
+      padding: 0 0.35rem;
+      font-family: var(--font-heading);
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+    .collage-footer-left {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+    }
+    .asterisk-icon {
+      color: var(--cyan);
+      font-size: 1.05rem;
+      display: inline-block;
+      animation: spinSlow 12s linear infinite;
+    }
+    .zip-load-btn {
+      background: rgba(0, 229, 255, 0.08);
+      border: 1px solid rgba(0, 229, 255, 0.3);
+      color: var(--cyan);
+      padding: 0.36rem 0.85rem;
+      border-radius: 999px;
+      font-family: var(--font-heading);
+      font-size: 0.74rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .zip-load-btn:hover {
+      background: var(--cyan);
+      color: #05060a;
+    }
+
+    /* Dual-Row Infinite Kinetic Marquee Ribbon */
+    .marquee-wrapper {
+      position: relative;
+      z-index: 2;
+      padding: 1.5rem 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: rgba(12, 14, 22, 0.6);
+      backdrop-filter: blur(10px);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+    }
+    .marquee-track {
+      display: flex;
+      width: max-content;
+      gap: 2.2rem;
+      animation: marqueeScrollLeft 32s linear infinite;
+    }
+    .marquee-track.reverse {
+      animation: marqueeScrollRight 36s linear infinite;
+    }
+    .marquee-wrapper:hover .marquee-track {
+      animation-play-state: paused;
+    }
+    .marquee-item {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 2.2rem;
+      white-space: nowrap;
+    }
+    .marquee-item span.accent { color: var(--cyan); }
+    .marquee-item span.pink { color: var(--pink); }
+    @keyframes marqueeScrollLeft {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    @keyframes marqueeScrollRight {
+      0% { transform: translateX(-50%); }
+      100% { transform: translateX(0); }
+    }
+
+    /* Section Layout */
+    .section {
+      position: relative; z-index: 2;
+      max-width: 1380px; margin: 0 auto;
+      padding: 5.5rem 5%;
+    }
+    .sec-head {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      flex-wrap: wrap; gap: 1.5rem; margin-bottom: 3rem;
+    }
+    .sec-kicker {
+      display: block; font-family: var(--font-heading);
+      font-size: 0.8rem; letter-spacing: 0.15em;
+      color: var(--cyan); margin-bottom: 0.45rem;
+    }
+    .sec-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.85rem, 3.6vw, 2.95rem);
+      font-weight: 700; letter-spacing: -0.02em;
+    }
+
+    /* Category Filter Tabs */
+    .filter-tabs { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .tab-btn {
+      padding: 0.52rem 1.08rem; border-radius: 999px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      color: var(--muted); font-family: var(--font-heading);
+      font-size: 0.84rem; cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .tab-btn.active, .tab-btn:hover {
+      background: var(--text); color: var(--bg); border-color: var(--text);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(255, 255, 255, 0.18);
+    }
+
+    /* Spotlight Cards Grid (12 Projects) */
+    .behance-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+      gap: 2rem;
+    }
+
+    .spotlight-card {
+      position: relative;
+      border-radius: 24px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      transform-style: preserve-3d;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.45s ease, box-shadow 0.3s ease;
+    }
+    .spotlight-card:hover {
+      box-shadow: 0 24px 55px rgba(0, 0, 0, 0.65);
+    }
+    .spotlight-card.hidden-card {
+      display: none;
+    }
+    .spotlight-card.filter-pop {
+      animation: filterCardIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes filterCardIn {
+      from { opacity: 0; transform: scale(0.93) translateY(18px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    /* Radial Spotlight Layer */
+    .spotlight-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      padding: 1.5px;
+      background: radial-gradient(
+        420px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+        rgba(0, 229, 255, 0.9),
+        rgba(124, 92, 255, 0.5) 40%,
+        transparent 75%
+      );
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity: 0;
+      transition: opacity 0.35s ease;
+      pointer-events: none;
+      z-index: 5;
+    }
+    .spotlight-card:hover::before { opacity: 1; }
+
+    /* Cover Artwork Stage */
+    .card-visual {
+      aspect-ratio: 16 / 10;
+      width: 100%;
+      position: relative;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      border-bottom: 1px solid var(--border);
+      background: #090b13;
+    }
+
+    /* Diagonal Glass Shimmer Sweep on Cover Hover */
+    .card-visual::after {
+      content: "";
+      position: absolute;
+      top: 0; left: -140%;
+      width: 80%; height: 100%;
+      background: linear-gradient(
+        115deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.16) 50%,
+        transparent 100%
+      );
+      transform: skewX(-22deg);
+      transition: left 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: none;
+      z-index: 4;
+    }
+    .spotlight-card:hover .card-visual::after {
+      left: 160%;
+    }
+
+    .cat-tag {
+      position: absolute; top: 0.85rem; left: 0.85rem;
+      padding: 0.3rem 0.75rem; border-radius: 999px;
+      background: rgba(5, 6, 10, 0.78);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      font-family: var(--font-heading); font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: var(--cyan);
+      z-index: 4;
+    }
+
+    .num-tag {
+      position: absolute; bottom: 0.75rem; left: 0.85rem;
+      padding: 0.22rem 0.58rem; border-radius: 6px;
+      background: rgba(5, 6, 10, 0.78);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      font-family: var(--font-heading); font-size: 0.68rem;
+      font-weight: 700;
+      color: #e2e8f0;
+      z-index: 4;
+    }
+
+    /* Upload Custom Cover Image Button on Card */
+    .upload-cover-label {
+      position: absolute;
+      top: 0.85rem; right: 0.85rem;
+      padding: 0.3rem 0.7rem;
+      border-radius: 999px;
+      background: rgba(5, 6, 10, 0.78);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      color: #e2e8f0;
+      font-family: var(--font-heading);
+      font-size: 0.68rem;
+      font-weight: 600;
+      cursor: pointer;
+      z-index: 4;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      opacity: 0.86;
+      transition: all 0.25s ease;
+    }
+    .upload-cover-label:hover {
+      opacity: 1;
+      background: var(--cyan);
+      color: #05060a;
+      border-color: var(--cyan);
+    }
+
+    .cover-art-wrap {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .spotlight-card:hover .cover-art-wrap {
+      transform: scale(1.045);
+    }
+    .cover-art-wrap svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .real-cover-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 2;
+      transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .spotlight-card:hover .real-cover-img {
+      transform: scale(1.05);
+    }
+
+    .card-content {
+      padding: 1.6rem;
+      position: relative;
+      z-index: 2;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .tool-row {
+      display: flex; gap: 0.42rem; flex-wrap: wrap; margin-bottom: 0.7rem;
+    }
+    .tool-row span {
+      font-size: 0.72rem; font-family: var(--font-heading);
+      padding: 0.2rem 0.6rem; border-radius: 6px;
+      background: rgba(255, 255, 255, 0.05); color: var(--muted);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+    }
+    .card-content h3 {
+      font-family: var(--font-heading); font-size: 1.24rem; margin-bottom: 0.55rem;
+      transition: color 0.25s;
+    }
+    .spotlight-card:hover .card-content h3 { color: #ffffff; }
+    .card-content p {
+      font-size: 0.89rem; color: var(--muted); margin-bottom: 1.3rem;
+      line-height: 1.55;
+    }
+    .card-actions {
+      display: flex; justify-content: space-between; align-items: center; gap: 0.75rem;
+      padding-top: 0.85rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .inspect-btn {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.48rem 1rem; border-radius: 999px;
+      font-family: var(--font-heading); font-size: 0.8rem; font-weight: 600;
+      cursor: pointer; transition: all 0.25s;
+    }
+    .inspect-btn:hover { background: var(--cyan); color: #05060a; border-color: var(--cyan); }
+
+    .behance-ext {
+      color: var(--cyan); text-decoration: none;
+      font-family: var(--font-heading); font-size: 0.83rem; font-weight: 600;
+      transition: transform 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+    .behance-ext:hover { text-decoration: underline; transform: translateX(2px); }
+
+    /* Resume-Only Experience & Personal Info Section with Scroll Timeline */
+    .resume-grid {
+      display: grid; grid-template-columns: 1.35fr 0.9fr; gap: 2.5rem;
+    }
+    .timeline-column {
+      position: relative;
+      padding-left: 2rem;
+    }
+    .timeline-track {
+      position: absolute;
+      left: 7px; top: 8px; bottom: 8px;
+      width: 2px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 2px;
+    }
+    .timeline-fill {
+      position: absolute;
+      left: 7px; top: 8px;
+      width: 2px; height: 0%;
+      background: linear-gradient(180deg, var(--cyan), var(--purple), var(--pink));
+      box-shadow: 0 0 12px var(--cyan);
+      border-radius: 2px;
+      transition: height 0.15s ease-out;
+    }
+    .exp-card, .info-card {
+      position: relative;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 22px; padding: 1.75rem;
+      margin-bottom: 1.35rem;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s;
+    }
+    .exp-card::before {
+      content: "";
+      position: absolute;
+      left: -2rem; top: 2rem;
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: #05060a;
+      border: 2.5px solid var(--cyan);
+      box-shadow: 0 0 12px rgba(0, 229, 255, 0.7);
+      transform: translateX(-6px);
+    }
+    .exp-card:hover {
+      transform: translateX(6px);
+      border-color: rgba(0, 229, 255, 0.35);
+    }
+    .role-badge {
+      display: inline-block; font-family: var(--font-heading); font-size: 0.76rem;
+      color: var(--cyan); background: rgba(0, 229, 255, 0.09);
+      padding: 0.28rem 0.75rem; border-radius: 999px; margin-bottom: 0.65rem;
+    }
+    .exp-card h4 { font-family: var(--font-heading); font-size: 1.18rem; margin-bottom: 0.2rem; }
+    .exp-org { font-size: 0.9rem; color: #d0d7e6; margin-bottom: 0.6rem; }
+    .exp-card p { font-size: 0.9rem; color: var(--muted); line-height: 1.55; }
+
+    .info-list { list-style: none; display: grid; gap: 1rem; margin-top: 1rem; }
+    .info-list li {
+      padding-bottom: 0.85rem; border-bottom: 1px solid var(--border);
+      font-size: 0.92rem;
+    }
+    .info-list li:last-child { border-bottom: none; padding-bottom: 0; }
+    .info-label { display: block; font-size: 0.75rem; color: var(--cyan); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.2rem; }
+
+    /* Quick-Inspect Modal */
+    .modal-backdrop {
+      position: fixed; inset: 0;
+      background: rgba(5, 6, 10, 0.86);
+      backdrop-filter: blur(16px);
+      display: none; place-items: center;
+      padding: 1.25rem; z-index: 2000;
+    }
+    .modal-backdrop.open { display: grid; }
+    .modal-box {
+      max-width: 720px; width: 100%;
+      background: #0e1018; border: 1px solid rgba(0, 229, 255, 0.35);
+      border-radius: 26px; padding: 1.85rem;
+      position: relative;
+      box-shadow: 0 30px 70px rgba(0, 0, 0, 0.8);
+      animation: modalPop 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      max-height: 92vh;
+      overflow-y: auto;
+    }
+    @keyframes modalPop {
+      from { opacity: 0; transform: scale(0.92) translateY(18px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .modal-cover-preview {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      margin-bottom: 1.35rem;
+      position: relative;
+    }
+    .modal-close {
+      position: absolute; top: 1.15rem; right: 1.15rem;
+      width: 38px; height: 38px; border-radius: 50%;
+      background: rgba(5, 6, 10, 0.85); border: 1px solid var(--border);
+      color: var(--text); font-size: 1.1rem; cursor: pointer;
+      z-index: 10;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .modal-close:hover { background: var(--pink); transform: rotate(90deg); }
+
+    /* Staggered Scroll Reveal */
+    .reveal {
+      opacity: 0; transform: translateY(30px) scale(0.98);
+      transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.in-view { opacity: 1; transform: translateY(0) scale(1); }
+
+    /* Responsive Breakpoints */
+    @media (max-width: 1040px) {
+      .hero {
+        grid-template-columns: 1fr;
+        padding-top: 7.5rem;
+        gap: 3.5rem;
+      }
+      .hero-title {
+        font-size: clamp(2.25rem, 6.5vw, 4rem);
+      }
+      .hero-right {
+        max-width: 560px;
+        width: 100%;
+        margin: 0 auto;
+      }
+      .fanned-stage {
+        height: 360px;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .resume-grid { grid-template-columns: 1fr; }
+      .nav-menu { display: none; }
+    }
+
+    @media (max-width: 540px) {
+      .hero { padding: 6.8rem 5% 3rem; }
+      .hero-title { font-size: clamp(1.85rem, 8.2vw, 2.5rem); }
+      .fanned-stage { height: 300px; }
+      .fan-card { width: 82%; }
+      .fan-card.pos-back { transform: translate(12px, -54px) rotate(6deg) scale(0.94); }
+      .fan-card.pos-mid { transform: translate(-14px, -4px) rotate(-5deg) scale(0.97); }
+      .fan-card.pos-front { transform: translate(8px, 48px) rotate(2.5deg) scale(1); }
+      .behance-grid { grid-template-columns: 1fr; }
+      .collage-footer { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Top Scroll Progress Bar -->
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <!-- Ambient Aurora Orbs & Floating Geometric Wireframes -->
+  <div class="ambient-stage" aria-hidden="true">
+    <div class="aurora-orb orb-1"></div>
+    <div class="aurora-orb orb-2"></div>
+    <div class="aurora-orb orb-3"></div>
+    <svg class="geo-node geo-1" viewBox="0 0 120 120" fill="none">
+      <rect x="20" y="20" width="80" height="80" rx="16" stroke="#00e5ff" stroke-width="1" stroke-dasharray="4 4"/>
+      <circle cx="20" cy="20" r="4" fill="#00e5ff"/>
+      <circle cx="100" cy="100" r="4" fill="#7c5cff"/>
+    </svg>
+    <svg class="geo-node geo-2" viewBox="0 0 100 100" fill="none">
+      <polygon points="50,8 92,82 8,82" stroke="#ff3e8a" stroke-width="1" stroke-dasharray="3 3"/>
+      <circle cx="50" cy="8" r="3.5" fill="#ff3e8a"/>
+    </svg>
+  </div>
+
+  <!-- Interactive Constellation Particle Canvas -->
+  <canvas id="constellationCanvas"></canvas>
+
+  <!-- Custom Dynamic Label Cursor -->
+  <div class="cursor-dot" id="cursorDot"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- Navigation -->
+  <header class="navbar">
+    <a href="#" class="brand-logo">PV<span>.</span></a>
+    <nav class="nav-menu">
+      <a href="#behance-work">Selected Work (12)</a>
+      <a href="#experience-info">Experience &amp; Profile</a>
+      <a href="#contact-footer">Contact</a>
+    </nav>
+    <div class="nav-socials">
+      <a href="https://www.linkedin.com/in/prathamesh-vichare-405298238" target="_blank" rel="noopener" class="social-icon-btn" aria-label="LinkedIn" data-cursor="LINKEDIN">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/_prathamesh_7121_?exln=MTd3cW42OXg2a25xeg%3D%3D" target="_blank" rel="noopener" class="social-icon-btn ig" aria-label="Instagram" data-cursor="INSTAGRAM">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/></svg>
+      </a>
+      <a href="https://www.behance.net/prathamvichare6" target="_blank" rel="noopener" class="behance-pill magnetic" data-cursor="BEHANCE">
+        Behance ↗
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero Split Section (Left: Headline & CTA | Right: Selected Work 01—12 Fanned Collage) -->
+  <section class="hero">
+    <div class="hero-left">
+      <div class="status-chip">
+        <span class="status-dot"></span> Graphic Design • UI/UX • Branding • Web &amp; App Design
+      </div>
+      <h1 class="hero-title">
+        <span class="mask-line"><span class="mask-text">DESIGNING ICONIC</span></span>
+        <span class="mask-line"><span class="mask-text aurora-text">BRANDS &amp; INTERFACES</span></span>
+        <span class="mask-line"><span class="mask-text">THAT COMMAND ATTENTION</span></span>
+      </h1>
+      <p class="hero-desc">
+        Hi, I'm <strong>Prathamesh Vichare</strong> — a multidisciplinary visual &amp; product designer crafting high-impact brand identities, responsive web platforms, intuitive mobile apps, and precision vector graphics.
+      </p>
+      <div class="hero-actions">
+        <a href="#behance-work" class="btn-main magnetic" data-cursor="EXPLORE">Explore Behance Showcase</a>
+        <a href="https://www.behance.net/prathamvichare6" target="_blank" rel="noopener" class="btn-ghost magnetic" data-cursor="BEHANCE">Behance ↗</a>
+        <a href="https://www.linkedin.com/in/prathamesh-vichare-405298238" target="_blank" rel="noopener" class="social-pill-link magnetic" data-cursor="LINKEDIN">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+          LinkedIn ↗
+        </a>
+        <a href="https://www.instagram.com/_prathamesh_7121_?exln=MTd3cW42OXg2a25xeg%3D%3D" target="_blank" rel="noopener" class="social-pill-link ig magnetic" data-cursor="INSTAGRAM">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/></svg>
+          Instagram ↗
+        </a>
+      </div>
+
+      <!-- Primary Creative Stack -->
+      <div class="tools-dock">
+        <div class="tool-chip"><span class="badge-ic ic-ps">Ps</span> Adobe Photoshop</div>
+        <div class="tool-chip"><span class="badge-ic ic-ai">Ai</span> Adobe Illustrator</div>
+        <div class="tool-chip"><span class="badge-ic ic-cd">Cd</span> CorelDRAW</div>
+        <div class="tool-chip"><span class="badge-ic ic-fg">Fg</span> Figma</div>
+      </div>
+    </div>
+
+    <!-- Right-Side Hero Fanned Selected Work Collage -->
+    <div class="hero-right">
+      <div class="collage-header">
+        <span class="collage-kicker">SELECTED WORK</span>
+        <div class="collage-controls">
+          <span class="collage-counter" id="collageCounter">01 — 12</span>
+          <button type="button" class="shuffle-mini-btn" id="shuffleCollageBtn" data-cursor="SHUFFLE">Shuffle ↻</button>
+        </div>
+      </div>
+
+      <div class="fanned-stage" id="fannedStage">
+        <!-- Back Card (Default: 04 Kumo Matcha) -->
+        <div class="fan-card pos-back" id="fanCardBack" data-cursor="INSPECT"></div>
+        <!-- Middle Card (Default: 09 StorySprout) -->
+        <div class="fan-card pos-mid" id="fanCardMid" data-cursor="INSPECT"></div>
+        <!-- Front Hero Card (Default: 01 Scoop Parade) -->
+        <div class="fan-card pos-front" id="fanCardFront" data-cursor="INSPECT"></div>
+      </div>
+
+      <div class="collage-footer">
+        <div class="collage-footer-left">
+          <span class="asterisk-icon">✳</span>
+          <span>Designed to be explored.</span>
+        </div>
+        <label class="zip-load-btn" title="Select your covers folder or multiple JPG/PNG cover files to auto-fill all 12 cards">
+          <span>+ Load Covers Folder</span>
+          <input type="file" id="bulkCoverInput" accept="image/*" multiple hidden>
+        </label>
+      </div>
+    </div>
+  </section>
+
+  <!-- Kinetic Dual-Row Marquee Ribbon -->
+  <div class="marquee-wrapper" aria-hidden="true">
+    <div class="marquee-track">
+      <div class="marquee-item">SCOOP PARADE <span class="accent">✦</span> KUMO MATCHA <span class="pink">✦</span> STORYSPROUT <span class="accent">✦</span> LANEFORM <span class="pink">✦</span> BRINEFIRE KITCHEN <span class="accent">✦</span> VOLTROUTE <span class="pink">✦</span></div>
+      <div class="marquee-item">SCOOP PARADE <span class="accent">✦</span> KUMO MATCHA <span class="pink">✦</span> STORYSPROUT <span class="accent">✦</span> LANEFORM <span class="pink">✦</span> BRINEFIRE KITCHEN <span class="accent">✦</span> VOLTROUTE <span class="pink">✦</span></div>
+    </div>
+    <div class="marquee-track reverse">
+      <div class="marquee-item">COURTFORM BUILDERS <span class="pink">◆</span> VEILFORM <span class="accent">◆</span> STRAW HAT CREW <span class="pink">◆</span> DAWNFOLD COFFEE <span class="accent">◆</span> VERDILOOP <span class="pink">◆</span> DESKSPACE <span class="accent">◆</span></div>
+      <div class="marquee-item">COURTFORM BUILDERS <span class="pink">◆</span> VEILFORM <span class="accent">◆</span> STRAW HAT CREW <span class="pink">◆</span> DAWNFOLD COFFEE <span class="accent">◆</span> VERDILOOP <span class="pink">◆</span> DESKSPACE <span class="accent">◆</span></div>
+    </div>
+  </div>
+
+  <!-- Behance Portfolio Showcase Section (All 12 Projects) -->
+  <section class="section" id="behance-work">
+    <div class="sec-head">
+      <div>
+        <span class="sec-kicker">01 / BEHANCE PORTFOLIO SHOWCASE</span>
+        <h2 class="sec-title">Featured Projects &amp; Design Covers</h2>
+      </div>
+      <div class="filter-tabs" role="tablist">
+        <button class="tab-btn active" data-filter="all">All Works (12)</button>
+        <button class="tab-btn" data-filter="branding">Branding (4)</button>
+        <button class="tab-btn" data-filter="web">Web Design (3)</button>
+        <button class="tab-btn" data-filter="uiux">UI/UX (2)</button>
+        <button class="tab-btn" data-filter="app">App Design (2)</button>
+        <button class="tab-btn" data-filter="graphics">Graphic Design (1)</button>
+      </div>
+    </div>
+
+    <div class="behance-grid" id="projectsGrid"></div>
+  </section>
+
+  <!-- Resume-Only Experience & Personal Info Section -->
+  <section class="section" id="experience-info">
+    <div class="sec-head">
+      <div>
+        <span class="sec-kicker">02 / EXPERIENCE &amp; PERSONAL DETAILS</span>
+        <h2 class="sec-title">Career &amp; Background</h2>
+      </div>
+    </div>
+
+    <div class="resume-grid">
+      <div class="timeline-column" id="timelineContainer">
+        <div class="timeline-track"></div>
+        <div class="timeline-fill" id="timelineFill"></div>
+
+        <div class="exp-card reveal">
+          <span class="role-badge">May 2026 — Present</span>
+          <h4>Graphic Designer</h4>
+          <div class="exp-org">CashurDrive Marketing Private Limited</div>
+          <p>Designing client presentation mockups for transit media, adapting advertising artwork for hoardings and station boards, and developing cab and hoarding innovation concepts.</p>
+        </div>
+
+        <div class="exp-card reveal">
+          <span class="role-badge">Jan 2025 — 2026</span>
+          <h4>Wallpaper Designer &amp; Illustrator</h4>
+          <div class="exp-org">Magic Decor</div>
+          <p>Created original repeat patterns, murals, and custom wallpaper designs for residential and commercial interiors; served as sole designer for the global.com website launch collection.</p>
+        </div>
+
+        <div class="exp-card reveal">
+          <span class="role-badge">Feb 2024 — Jan 2025</span>
+          <h4>Graphic Designer</h4>
+          <div class="exp-org">Stacklab.in, Pune</div>
+          <p>Created vector illustrations, 2D/3D game assets, and social media creatives while collaborating across teams to meet project deadlines.</p>
+        </div>
+      </div>
+
+      <div>
+        <div class="info-card reveal">
+          <h4 style="font-family: var(--font-heading); font-size: 1.25rem;">Personal &amp; Academic Details</h4>
+          <ul class="info-list">
+            <li>
+              <span class="info-label">Full Name</span>
+              Prathamesh Mahesh Vichare
+            </li>
+            <li>
+              <span class="info-label">Location</span>
+              Ratnagiri / Thane, Maharashtra, India
+            </li>
+            <li>
+              <span class="info-label">Email &amp; Phone</span>
+              prathamesh7121@gmail.com • +91 7822036072
+            </li>
+            <li>
+              <span class="info-label">Education — Post Graduation</span>
+              Master of Computer Applications (MCA) • Finolex Academy of Management &amp; Technology, Mumbai University (2022–2024 | CGPA: 8.45/10)
+            </li>
+            <li>
+              <span class="info-label">Education — Graduation</span>
+              B.Sc. Information Technology • Gogate Jogalekar College, Ratnagiri, Mumbai University (2019–2022 | CGPA: 7.97/10)
+            </li>
+            <li>
+              <span class="info-label">Languages</span>
+              English, Hindi, Marathi
+            </li>
+            <li>
+              <span class="info-label">Social &amp; Portfolio Profiles</span>
+              <a href="https://www.behance.net/prathamvichare6" target="_blank" rel="noopener" style="color: var(--cyan); text-decoration: none; margin-right: 0.9rem;">Behance ↗</a>
+              <a href="https://www.linkedin.com/in/prathamesh-vichare-405298238" target="_blank" rel="noopener" style="color: var(--cyan); text-decoration: none; margin-right: 0.9rem;">LinkedIn ↗</a>
+              <a href="https://www.instagram.com/_prathamesh_7121_?exln=MTd3cW42OXg2a25xeg%3D%3D" target="_blank" rel="noopener" style="color: var(--pink); text-decoration: none;">Instagram ↗</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="section" id="contact-footer" style="padding-top: 2rem; text-align: center;">
+    <div class="info-card reveal" style="padding: 3.5rem 2rem; background: linear-gradient(135deg, rgba(124,92,255,0.12), rgba(0,229,255,0.07));">
+      <span class="sec-kicker">03 / LET'S COLLABORATE</span>
+      <h2 class="sec-title" style="margin-bottom: 1.5rem;">Ready to elevate your brand or digital product?</h2>
+      <div class="hero-actions" style="justify-content: center; margin-bottom: 1.5rem;">
+        <a href="https://www.behance.net/prathamvichare6" target="_blank" rel="noopener" class="behance-pill magnetic" data-cursor="BEHANCE">Behance Portfolio ↗</a>
+        <a href="https://www.linkedin.com/in/prathamesh-vichare-405298238" target="_blank" rel="noopener" class="social-pill-link magnetic" data-cursor="LINKEDIN">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+          LinkedIn ↗
+        </a>
+        <a href="https://www.instagram.com/_prathamesh_7121_?exln=MTd3cW42OXg2a25xeg%3D%3D" target="_blank" rel="noopener" class="social-pill-link ig magnetic" data-cursor="INSTAGRAM">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/></svg>
+          Instagram ↗
+        </a>
+        <a href="mailto:prathamesh7121@gmail.com" class="btn-ghost magnetic" data-cursor="EMAIL">prathamesh7121@gmail.com</a>
+      </div>
+      <p style="font-size: 0.85rem; color: var(--muted);">© 2026 Prathamesh Mahesh Vichare • +91 7822036072</p>
+    </div>
+  </footer>
+
+  <!-- Quick-Inspect Modal -->
+  <div class="modal-backdrop" id="projectModal" aria-hidden="true">
+    <div class="modal-box">
+      <button class="modal-close" id="closeModal" aria-label="Close modal">✕</button>
+      <div class="modal-cover-preview" id="modalCoverPreview"></div>
+      <span class="sec-kicker" id="modalCategory">CASE STUDY</span>
+      <h3 id="modalTitle" style="font-family: var(--font-display); font-size: 1.65rem; margin-bottom: 0.75rem;"></h3>
+      <p id="modalDesc" style="color: var(--muted); font-size: 0.96rem; margin-bottom: 1.25rem; line-height: 1.6;"></p>
+      <div id="modalHighlights" style="background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: 14px; padding: 1rem; margin-bottom: 1.5rem; font-size: 0.9rem;"></div>
+      <div style="display: flex; gap: 0.85rem; flex-wrap: wrap; align-items: center;">
+        <a href="https://www.behance.net/prathamvichare6" target="_blank" rel="noopener" class="behance-pill">Open Full Case Study on Behance ↗</a>
+        <label class="inspect-btn" style="cursor: pointer;">
+          Replace Cover Image
+          <input type="file" accept="image/*" id="modalFileInput" hidden>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    try {
+      // =========================================================================
+      // 1. ALL 12 PROJECTS FROM PORTFOLIO_COVERS_AND_CARD_TEXT.ZIP
+      // =========================================================================
+      const projects = [
+        {
+          id: '01',
+          slug: '01_Scoop_Parade',
+          file: 'covers/01_Scoop_Parade.jpg',
+          title: 'Scoop Parade',
+          subtitle: 'Artisanal Gelato & Ice Cream Brand Identity',
+          category: 'branding',
+          catLabel: 'BRANDING & PACKAGING',
+          cursor: 'BRANDING',
+          tools: ['Illustrator', 'Photoshop', 'CorelDRAW'],
+          desc: 'Playful artisanal ice-cream & gelato brand identity featuring custom retro-modern typography, cheerful mascot badge, pastel tub packaging, and storefront signage.',
+          highlights: 'Tools: Adobe Illustrator, Photoshop, CorelDRAW • Deliverables: Logomark, Tub Packaging System, Flavor Badges, Storefront Mockups',
+          svg: `
+            <svg viewBox="0 0 480 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="480" height="300" fill="#4a192c"/>
+              <rect x="0" y="0" width="245" height="300" fill="#591c34"/>
+              <circle cx="365" cy="150" r="115" fill="#f9a8d4" fill-opacity="0.16"/>
+              <text x="28" y="42" fill="#f9a8d4" font-family="Space Grotesk, sans-serif" font-size="8" font-weight="700" letter-spacing="1.6">BRANDING &amp; PACKAGING</text>
+              <text x="28" y="96" fill="#fff1f2" font-family="Syne, sans-serif" font-size="31" font-weight="800">Scoop</text>
+              <text x="28" y="130" fill="#fbcfe8" font-family="Syne, sans-serif" font-size="31" font-weight="800">Parade</text>
+              <text x="28" y="158" fill="#f472b6" font-family="Plus Jakarta Sans, sans-serif" font-size="10.5">Small-batch artisanal gelato &amp; waffle</text>
+              <text x="28" y="173" fill="#f472b6" font-family="Plus Jakarta Sans, sans-serif" font-size="10.5">parlor identity crafted in Mumbai.</text>
+              <rect x="28" y="192" width="54" height="18" rx="9" fill="rgba(255,255,255,0.1)"/>
+              <text x="38" y="204" fill="#fff" font-family="Space Grotesk, sans-serif" font-size="7.5">Packaging</text>
+              <rect x="88" y="192" width="52" height="18" rx="9" fill="rgba(255,255,255,0.1)"/>
+              <text x="98" y="204" fill="#fff" font-family="Space Grotesk, sans-serif" font-size="7.5">Identity</text>
+              <!-- Artisanal Ice Cream Cup & Scoops Illustration -->
+              <g transform="translate(272, 42)">
+                <rect x="12" y="14" width="166" height="214" rx="22" fill="#fdf2f8" fill-opacity="0.1" stroke="rgba(251,207,232,0.3)"/>
+                <!-- Waffle Cone -->
+                <polygon points="62,132 128,132 95,212" fill="#f59e0b"/>
+                <line x1="72" y1="146" x2="112" y2="174" stroke="#b45309" stroke-width="1.5"/>
+                <line x1="118" y1="146" x2="78" y2="174" stroke="#b45309" stroke-width="1.5"/>
+                <!-- Triple Gelato Scoops -->
+                <circle cx="80" cy="116" r="28" fill="#fb7185"/>
+                <circle cx="112" cy="116" r="28" fill="#fde047"/>
+                <circle cx="96" cy="84" r="28" fill="#38bdf8"/>
+                <circle cx="96" cy="52" r="7" fill="#e11d48"/>
+              </g>
+            </svg>`
+        },
+        {
+          id: '02',
+          slug: '02_Laneform',
+          file: 'covers/02_Laneform.jpg',
+          title: 'Laneform',
+          subtitle: 'Urban Transit & Wayfinding Brand System',
+          category: 'branding',
+          catLabel: 'BRANDING & IDENTITY',
+          cursor: 'BRANDING',
+          tools: ['Illustrator', 'CorelDRAW', 'Photoshop'],
+          desc: 'Modular mobility & urban transit wayfinding identity featuring a precision geometric logomark, high-visibility directional pictograms, and OOH station signage.',
+          highlights: 'Tools: Adobe Illustrator, CorelDRAW, Photoshop • Deliverables: Geometric Logomark, Wayfinding Pictograms, Transit Hoarding Mockups',
+          svg: `
+            <svg viewBox="0 0 480 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="480" height="300" fill="#0b1320"/>
+              <g stroke="rgba(56,189,248,0.08)" stroke-width="1">
+                <line x1="0" y1="75" x2="480" y2="75"/><line x1="0" y1="150" x2="480" y2="150"/><line x1="0" y1="225" x2="480" y2="225"/>
+                <line x1="120" y1="0" x2="120" y2="300"/><line x1="240" y1="0" x2="240" y2="300"/><line x1="360" y1="0" x2="360" y2="300"/>
+              </g>
+              <text x="28" y="42" fill="#38bdf8" font-family="Space Grotesk, sans-serif" font-size="8" font-weight="700" letter-spacing="1.6">MOBILITY &amp; WAYFINDING</text>
+              <text x="28" y="102" fill="#f8fafc" font-family="Syne, sans-serif" font-size="30" font-weight="800">Laneform</text>
+              <text x="28" y="132" fill="#94a3b8" font-family="Plus Jakarta Sans, sans-serif" font-size="10.5">Modular transit identity &amp; directional</text>
+              <text x="28" y="147" fill="#94a3b8" font-family="Plus Jakarta Sans, sans-serif" font-size="10.5">signage system for urban corridors.</text>
+              <rect x="28" y="172" width="164" height="36" rx="10" fill="#eab308"/>
+              <text x="42" y="194" fill="#090d16" font-family="Space Grotesk, sans-serif" font-size="11" font-weight="800" letter-spacing="1">LINE 04 → EXPRESS</text>
+              <!-- Wayfinding Totem Graphic -->
+              <g transform="translate(268, 38)">
+                <rect x="14" y="10" width="164" height="224" rx="20" fill="#111c2e" stroke="rgba(56,189,248,0.35)" stroke-width="1.4"/>
+                <path d="M52 72 H118 L142 96 L118 120 H52 Z" fill="#38bdf8"/>
+                <path d="M52 138 H134 V178 H52 Z" fill="#eab308"/>
+                <text x="64" y="101" fill="#090d16" font-family="Syne, sans-serif" font-weight="800" font-size="13">NORTH</text>
+                <text x="64" y="163" fill="#090d16" font-family="Syne, sans-serif" font-weight="800" font-size="13">GATE B2</text>
+              </g>
+            </svg>`
+        },
+        {
+          id: '03',
+          slug: '03_Brinefire_Kitchen',
+          file: 'covers/03_Brinefire_Kitchen.jpg',
+          title: 'Brinefire Kitchen',
+          subtitle: 'Coastal Wood-Fired Culinary Web Experience',
+          category: 'web',
+          catLabel: 'WEB DESIGN',
+          cursor: 'WEB UI',
+          tools: ['Figma', 'Photoshop', 'Illustrator'],
+          desc: 'Coastal wood-fired culinary web storefront featuring moody editorial photography direction, interactive tasting menu storytelling, and seamless table reservation UX.',
+          highlights: 'Tools: Figma, Adobe Photoshop, Illustrator • Deliverables: Responsive Web Storefront, Interactive Menu UI, Reservation Flow',
+          svg: `
+            <svg viewBox="0 0 480 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="480" height="300" fill="#1c110a"/>
+              <circle cx="380" cy="80" r="130" fill="#ea580c" fill-opacity="0.18"/>
+              <text x="28" y="42" fill="#fb923c" font-family="Space Grotesk, sans-serif" font-size="8" font-weight="700" letter-spacing="1.6">EDITORIAL WEB DESIGN</text>
+              <text x="28" y="96" fill="#fff7ed" font-family="Syne, sans-serif" font-size="28" font-weight="800">Brinefire</text>
+              <text x="28" y="128" fill="#fdba74" font-family="Syne, sans-serif" font-size="28" font-weight="800">Kitchen</text>
+              <text x="28" y="156" fill="#cbd5e1" font-family="Plus Jakarta Sans, sans-serif" font-size="10.5">Coastal wood-fired dining &amp; tasting</text>
+              <text x="28" y="171" fill="#cbd5e1" font-family="Plus Jakarta Sans, sans-serif" font-size="10.5">menu web experience.</text>
+              <rect x="28" y="192" width="116" height="30" rx="15" fill="#ea580c"/>
+              <text x="45" y="211" fill="#fff" font-family="Space Grotesk, sans-serif" font-size="9.5" font-weight="700">RESERVE TABLE</text>
+              <!-- Web Browser & Culinary Plate Preview -->
+              <g transform="translate(248, 42)">
+                <rect x="0" y="0" width="204" height="216" rx="18" fill="#120b07" stroke="rgba(251,146,60,0.35)"/>
+                <circle cx="102" cy="108" r="64" fill="#29180e" stroke="#fb923c" stroke-width="1.5"/>
+                <circle cx="102" cy="108" r="44" fill="#ea580c" fill-opacity="0.35"/>
+                <path d="M76 112 Q102 74 128 112 Q102 138 76 112 Z" fill="#fdba74"/>
+                <text x="58" y="194" fill="#fed7aa" font-family="Space Grotesk, sans-serif" font-size="9" letter-spacing="1.2">CHEF'S FIRE TABLE</text>
+              </g>
+            </svg>`
+        },
+        {
+          id: '04',
+          slug: '04_Kumo_Matcha',
+          file: 'covers/04_Kumo_Matcha.jpg',
+          title: 'Kumo Matcha',
+          subtitle: 'Artisanal Japanese Matcha Cafe & Packaging',
+          category: 'branding',
+          catLabel: 'BRANDING & PACKAGING',
+          cursor: 'BRANDING',
+          tools: ['Illustrator', 'Photoshop', 'CorelDRAW'],
+          desc: 'Artisanal Japanese matcha cafe visual identity combining serene botanical tones, bold condensed display typography, ceremonial tin packaging, and iced cup branding.',
+          highlights: 'Tools: Adobe Illustrator, Photoshop, CorelDRAW • Deliverables: Cafe Identity, Ceremonial Tin Labels, Cup Sleeves, Menu System',
+          svg: `
+            <svg viewBox="0 0 480 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="480" height="300" fill="#1e3518"/>
+              <rect x="0" y="0" width="275" height="300" fill="#f3f5ec"/>
+              <text x="26" y="42" fill="#4d7c0f" font-family="Space Grotesk, sans-serif" font-size="8" font-weight="700" letter-spacing="1.6">ARTISANAL MATCHA CAFE</text>
+              <text x="24" y="114" fill="#29471e" font-family="Syne, sans-serif" font-size="44" font-weight="800" letter-spacing="-1">KUMO</text>
+              <text x="26" y="140" fill="#4d7c0f" font-family="Space Grotesk, sans-serif" font-size="13" font-weight="700" letter-spacing="5">MATCHA</text>
+              <text x="26" y="176" fill="#4b5563" font-family="Plus Jakarta Sans, sans-serif" font-size="10.5">Ceremonial Uji grade matcha bar,</text>
+              <text x="26" y="191" fill="#4b5563" font-family="Plus Jakarta Sans, sans-serif" font-size="10.5">packaging tins &amp; visual system.</text>
+              <rect x="26" y="212" width="82" height="22" rx="11" fill="#29471e"/>
+              <text x="41" y="226" fill="#f3f5ec" font-family="Space Grotesk, sans-serif" font-size="8" font-weight="700">KYOTO • UJI</text>
+              <!-- Iced Matcha Cup Visual on Right -->
+              <g transform="translate(292, 36)">
+                <path d="M36 62 H134 L120 226 H50 Z" fill="rgba(255,255,255,0.18)" stroke="rgba(255,255,255,0.45)" stroke-width="1.5"/>
+                <path d="M41 114 H129 L120 224 H50 Z" fill="#65a30d"/>
+                <path d="M40 94 H130 L129 118 H41 Z" fill="#ecfccb"/>
+                <rect x="46" y="138" width="78" height="36" rx="6" fill="#f3f5ec"/>
+                <text x="61" y="160" fill="#29471e" font-family="Syne, sans-serif" font-weight="800" font-size="13">KUMO</text>
+                <ellipse cx="32" cy="48" rx="22" ry="11" transform="rotate(-28 32 48)" fill="#84cc16"/>
+              </g>
+            </svg>`
+        },
+        {
+          id: '05',
+          slug: '05_Courtform_Builders',
+          file: 'covers/05_Courtform_Builders.jpg',
+          title: 'Courtform Builders',
+          subtitle: 'Architectural & Sports Infrastructure Web Platform',
+          category: 'web',
+          catLabel: 'WEB DESIGN',
+          cursor: 'WEB UI',
+          tools: ['Figma', 'Illustrator', 'Photoshop'],
+          desc: 'Architectural construction & championship court engineering web platform featuring technical blueprint grids, project case showcases, and structured client inquiry UX.',
+          highlights: 'Tools: Figma, Adobe Illustrator, Photoshop • Deliverables: Architectural Web UI, Interactive Project Showcase, Blueprint Components',
+          svg: `
+            <svg viewBox="0 0 480 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="480" height="300" fill="#0d1b2a"/>
+              <text x="28" y="42" fill="#38bdf8" font-family="Space Grotesk, sans-serif" font-size="8" font-weight="700" letter-spacing="1.6">ARCHITECTURAL WEB UI</text>
+              <text x="28" y="96" fill="#f8fafc" font-family="Syne, sans-serif" font-size="27" font-weight="800">Courtform</text>
+              <text x="28" y="126" fill="#93c5fd" font-family="Syne, sans-serif" font-size="27" font-weight="800">Builders</text>
+              <text x="28" y="156" fill="#94a3b8" font-family="Plus Jakarta Sans, sans-serif" font-size="10.5">Precision sports courts &amp; modern</text>
+              <text x="28" y="171" fill="#94a3b8" font-family="Plus Jakarta Sans, sans-serif" font-size="10.5">architectural engineering portal.</text>
+              <rect x="28" y="194" width="118" height="28" rx="8" fill="#0284c7"/>
+              <text x="42" y="212" fill="#fff" font-family="Space Grotesk, sans-serif" font-size="8.5" font-weight="700">VIEW BLUEPRINTS</text>
+              <!-- Court Architectural Line Diagram -->
+              <g transform="translate(248, 38)">
+                <rect x="0" y="0" width="204" height="224" rx="18" fill="#13293d" stroke="rgba(56,189,248,0.4)"/>
+                <rect x="24" y="24" width="156" height="176" rx="6" stroke="#38bdf8" stroke-width="1.8"/>
+                <line x1="24" y1="112" x2="180" y2="112" stroke="#38bdf8" stroke-width="1.5"/>
+                <circle cx="102" cy="112" r="24" stroke="#f59e0b" stroke-width="1.8"/>
+                <rect x="64" y="24" width="76" height="36" stroke="#38bdf8" stroke-width="1.4"/>
+                <rect x="64" y="164" width="76" height="36" stroke="#38bdf8" stroke-width="1.4"/>
+              </g>
+            </svg>`
+        },
+        {
+          id: '06',
+          slug: '06_Veilform',
+          file: 'covers/06_Veilform.jpg',
+          title: 'Veilform',
+          subtitle: 'Spatial Acoustic & Minimalist UI/UX Design System',
+          category: 'uiux',
+          catLabel: 'UI/UX DESIGN SYSTEM',
+          cursor: 'UI/UX',
+          tools: ['Figma', 'Photoshop'],
+          desc: 'Minimalist spatial & acoustic panel configurator UI/UX design system built with clean atomic tokens, real-time room acoustic previews, and calm monochrome aesthetics.',
+          highlights: 'Tools: Figma, Adobe Photoshop • Deliverables: Atomic Design System, Material Swatch Configurator UI, Responsive Web & Tablet Screens',
+          svg: `
+            <svg viewBox="0 0 480 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="480" height="300" fill="#18181b"/>
+              <circle cx="380" cy="220" r="130" fill="#a78bfa" fill-opacity="0.14"/>
+              <text x="28" y="42" fill="#c4b5fd" font-family="Space Grotesk, sans-serif" font-size="8" font-weight="700" letter-spacing="1.6">UI/UX DESIGN SYSTEM</text>
+              <text x="28" y="98" fill="#fafafa" font-family="Syne, sans-serif" font-size="31" font-weight="800">Veilform</text>
+              <text x="28" y="130" fill="#a1a1aa" font-family="Plus Jakarta Sans, sans-serif" font-size="10.5">Modular acoustic architecture &amp;</text>
+              <text x="28" y="145" fill="#a1a1aa" font-family="Plus Jakarta Sans, sans-serif" font-size="10.5">spatial product configurator UI.</text>
+              <!-- Swatch Chips -->
+              <circle cx="40" cy="182" r="10" fill="#e4e4e7"/>
+              <circle cx="68" cy="182" r="10" fill="#a78bfa"/>
+              <circle cx="96" cy="182" r="10" fill="#52525b"/>
+              <circle cx="124" cy="182" r="10" fill="#27272a" stroke="#fff" stroke-width="1"/>
+              <!-- Acoustic Slats Card -->
+              <g transform="translate(248, 38)">
+                <rect x="0" y="0" width="204" height="224" rx="18" fill="#27272a" stroke="rgba(196,181,253,0.35)"/>
+                <rect x="26" y="32" width="14" height="160" rx="7" fill="#c4b5fd"/>
+                <rect x="52" y="48" width="14" height="128" rx="7" fill="#a1a1aa"/>
+                <rect x="78" y="26" width="14" height="172" rx="7" fill="#fafafa"/>
+                <rect x="104" y="44" width="14" height="136" rx="7" fill="#8b5cf6"/>
+                <rect x="130" y="34" width="14" height="156" rx="7" fill="#e4e4e7"/>
+                <rect x="156" y="54" width="14" height="116" rx="7" fill="#71717a"/>
+              </g>
+            </svg>`
+        },
+        {
+          id: '07',
+          slug: '07_Straw_Hat_Crew',
+          file: 'covers/07_Straw_Hat_Crew.jpg',
+          title: 'Straw Hat Crew',
+          subtitle: 'Cel-Shaded Vector Character Illustration Series',
+          category: 'graphics',
+          catLabel: 'GRAPHIC DESIGN & VECTOR',
+          cursor: 'GRAPHICS',
+          tools: ['Illustrator', 'Photoshop', 'CorelDRAW'],
+          desc: 'Custom anime-inspired vector character illustration series featuring bold cel-shaded linework, vibrant halftone poster compositions, and print-ready collectible sticker sheets.',
+          highlights: 'Tools: Adobe Illustrator, Photoshop, CorelDRAW • Deliverables: Vector Character Art, Editorial Posters, Print Die-Cut Sticker Pack',
+          svg: `
+            <svg viewBox="0 0 480 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="480" height="300" fill="#1e1b4b"/>
+              <circle cx="355" cy="145" r="105" fill="#facc15" fill-opacity="0.9"/>
+              <text x="28" y="42" fill="#facc15" font-family="Space Grotesk, sans-serif" font-size="8" font-weight="700" letter-spacing="1.6">VECTOR ILLUSTRATION</text>
+              <text x="28" y="96" fill="#ffffff" font-family="Syne, sans-serif" font-size="28" font-weight="800">Straw Hat</text>
+              <text x="28" y="128" fill="#f87171" font-family="Syne, sans-serif" font-size="28" font-weight="800">Crew Art</text>
+              <text x="28" y="156" fill="#cbd5e1" font-family="Plus Jakarta Sans, sans-serif" font-size="10.5">Cel-shaded vector poster series &amp;</text>
+              <text x="28" y="171" fill="#cbd5e1" font-family="Plus Jakarta Sans, sans-serif" font-size="10.5">collectible character graphics.</text>
+              <!-- Iconic Straw Hat Vector Emblem -->
+              <g transform="translate(268, 72)">
+                <path d="M36 92 C36 42, 138 42, 138 92 Z" fill="#fde047" stroke="#0f172a" stroke-width="3"/>
+                <rect x="38" y="76" width="98" height="14" fill="#ef4444" stroke="#0f172a" stroke-width="2.5"/>
+                <ellipse cx="87" cy="96" rx="82" ry="18" fill="#facc15" stroke="#0f172a" stroke-width="3"/>
+              </g>
+            </svg>`
+        },
+        {
+          id: '08',
+          slug: '08_Dawnfold_Coffee',
+          file: 'covers/08_Dawnfold_Coffee.jpg',
+          title: 'Dawnfold Coffee',
+          subtitle: 'Specialty Micro-Lot Coffee Roastery & Packaging',
+          category: 'branding',
+          catLabel: 'BRANDING & PACKAGING',
+          cursor: 'BRANDING',
+          tools: ['CorelDRAW', 'Illustrator', 'Photoshop'],
+          desc: 'Specialty micro-lot coffee roastery brand identity featuring custom die-line pouch packaging, origin flavor-note cards, roast-level color coding, and studio 3D mockups.',
+          highlights: 'Tools: CorelDRAW, Adobe Illustrator, Photoshop • Deliverables: Packaging Die-Lines, Origin Tasting Cards, Brand Identity, 3D Mockups',
+          svg: `
+            <svg viewBox="0 0 480 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="480" height="300" fill="#271710"/>
+              <rect x="0" y="0" width="250" height="300" fill="#321d14"/>
+              <text x="28" y="42" fill="#f59e0b" font-family="Space Grotesk, sans-serif" font-size="8" font-weight="700" letter-spacing="1.6">SPECIALTY ROASTERY</text>
+              <text x="28" y="96" fill="#fef3c7" font-family="Syne, sans-serif" font-size="28" font-weight="800">Dawnfold</text>
+              <text x="28" y="128" fill="#fbbf24" font-family="Syne, sans-serif" font-size="28" font-weight="800">Coffee</text>
+              <text x="28" y="156" fill="#d6d3d1" font-family="Plus Jakarta Sans, sans-serif" font-size="10.5">Single-origin micro-lot pouch</text>
+              <text x="28" y="171" fill="#d6d3d1" font-family="Plus Jakarta Sans, sans-serif" font-size="10.5">packaging &amp; roastery identity.</text>
+              <!-- Coffee Pouch Illustration -->
+              <g transform="translate(278, 36)">
+                <rect x="18" y="12" width="148" height="218" rx="16" fill="#d97706"/>
+                <rect x="34" y="54" width="116" height="122" rx="10" fill="#fef3c7"/>
+                <circle cx="92" cy="88" r="18" fill="#78350f"/>
+                <text x="52" y="126" fill="#451a03" font-family="Syne, sans-serif" font-size="12" font-weight="800">DAWNFOLD</text>
+                <text x="56" y="144" fill="#92400e" font-family="Space Grotesk, sans-serif" font-size="8" font-weight="700">CHIKMAGALUR</text>
+                <text x="64" y="160" fill="#b45309" font-family="Space Grotesk, sans-serif" font-size="7.5">MEDIUM ROAST</text>
+              </g>
+            </svg>`
+        },
+        {
+          id: '09',
+          slug: '09_StorySprout',
+          file: 'covers/09_StorySprout.jpg',
+          title: 'StorySprout',
+          subtitle: 'Illustrated Interactive Reading App for Kids',
+          category: 'app',
+          catLabel: 'APP DESIGN • UI/UX',
+          cursor: 'APP UI',
+          tools: ['Figma', 'Illustrator'],
+          desc: 'An illustrated reading & storytelling app designed for kids and families on tablets, built around tactile storybook cards, custom forest illustrations, and bedtime audio continuity.',
+          highlights: 'Tools: Figma, Adobe Illustrator • Deliverables: Tablet App UI/UX, Custom Storybook Illustrations, Interactive Prototype',
+          svg: `
+            <svg viewBox="0 0 480 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="480" height="300" fill="#133827"/>
+              <rect x="235" y="0" width="245" height="300" fill="#86efac"/>
+              <!-- Whimsical Forest Trees Right -->
+              <circle cx="310" cy="70" r="65" fill="#22c55e"/>
+              <circle cx="395" cy="60" r="72" fill="#16a34a"/>
+              <circle cx="445" cy="115" r="55" fill="#15803d"/>
+              <rect x="335" y="110" width="16" height="120" fill="#713f12"/>
+              <text x="26" y="42" fill="#86efac" font-family="Space Grotesk, sans-serif" font-size="7.5" font-weight="700" letter-spacing="1.4">PRODUCT DESIGN / UI &amp; UX</text>
+              <text x="26" y="88" fill="#ffffff" font-family="Syne, sans-serif" font-size="25" font-weight="800">Storysprout</text>
+              <text x="26" y="116" fill="#bbf7d0" font-family="Plus Jakarta Sans, sans-serif" font-size="14" font-weight="600">Little stories.</text>
+              <text x="26" y="135" fill="#bbf7d0" font-family="Plus Jakarta Sans, sans-serif" font-size="14" font-weight="600">Big world.</text>
+              <text x="26" y="164" fill="#a7f3d0" font-family="Plus Jakarta Sans, sans-serif" font-size="9.5">Illustrated tablet reading app</text>
+              <text x="26" y="178" fill="#a7f3d0" font-family="Plus Jakarta Sans, sans-serif" font-size="9.5">crafted for kids &amp; families.</text>
+              <!-- Tablet Story Cards Preview -->
+              <rect x="242" y="162" width="110" height="112" rx="12" fill="#ffffff" stroke="#14532d" stroke-width="2"/>
+              <rect x="252" y="192" width="90" height="52" rx="6" fill="#fde047"/>
+              <text x="254" y="182" fill="#14532d" font-family="Space Grotesk, sans-serif" font-size="7.5" font-weight="700">What shall we read?</text>
+              <rect x="362" y="148" width="106" height="118" rx="12" fill="#ffffff" stroke="#14532d" stroke-width="2"/>
+              <rect x="372" y="176" width="86" height="56" rx="6" fill="#4ade80"/>
+              <text x="374" y="168" fill="#14532d" font-family="Space Grotesk, sans-serif" font-size="7.5" font-weight="700">The Lantern Fox</text>
+            </svg>`
+        },
+        {
+          id: '10',
+          slug: '10_VoltRoute',
+          file: 'covers/10_VoltRoute.jpg',
+          title: 'VoltRoute',
+          subtitle: 'EV Charging & Smart Commuter Route App',
+          category: 'app',
+          catLabel: 'APP DESIGN • UI/UX',
+          cursor: 'APP UI',
+          tools: ['Figma', 'Illustrator'],
+          desc: 'Electric vehicle charging & smart commuter route planner mobile app with live battery telemetry, charger availability filtering, and one-tap navigation.',
+          highlights: 'Tools: Figma, Adobe Illustrator • Deliverables: iOS/Android Mobile UI, Telemetry Widgets, Interactive Route Prototype',
+          svg: `
+            <svg viewBox="0 0 480 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="480" height="300" fill="#061621"/>
+              <circle cx="370" cy="145" r="120" fill="#00e5ff" fill-opacity="0.14"/>
+              <text x="28" y="42" fill="#00e5ff" font-family="Space Grotesk, sans-serif" font-size="8" font-weight="700" letter-spacing="1.6">EV MOBILITY MOBILE APP</text>
+              <text x="28" y="98" fill="#ffffff" font-family="Syne, sans-serif" font-size="30" font-weight="800">VoltRoute</text>
+              <text x="28" y="128" fill="#94a3b8" font-family="Plus Jakarta Sans, sans-serif" font-size="10.5">Live EV supercharger discovery &amp;</text>
+              <text x="28" y="143" fill="#94a3b8" font-family="Plus Jakarta Sans, sans-serif" font-size="10.5">range-optimized route navigation.</text>
+              <rect x="28" y="170" width="142" height="36" rx="10" fill="rgba(0,229,255,0.12)" stroke="#00e5ff"/>
+              <text x="42" y="192" fill="#00e5ff" font-family="Space Grotesk, sans-serif" font-size="11" font-weight="700">⚡ 84% • 340 KM</text>
+              <!-- Mobile HUD Screen -->
+              <g transform="translate(274, 34)">
+                <rect x="10" y="6" width="154" height="228" rx="24" fill="#0b1f2e" stroke="#00e5ff" stroke-width="1.5"/>
+                <path d="M36 164 C65 110, 105 155, 138 92" stroke="#00e5ff" stroke-width="3.5" stroke-linecap="round"/>
+                <circle cx="36" cy="164" r="6" fill="#22c55e"/>
+                <circle cx="138" cy="92" r="7" fill="#00e5ff"/>
+                <rect x="28" y="182" width="118" height="34" rx="10" fill="#00e5ff"/>
+                <text x="44" y="203" fill="#05060a" font-family="Space Grotesk, sans-serif" font-size="9.5" font-weight="800">START FAST ROUTE</text>
+              </g>
+            </svg>`
+        },
+        {
+          id: '11',
+          slug: '11_VerdiLoop',
+          file: 'covers/11_VerdiLoop.jpg',
+          title: 'VerdiLoop',
+          subtitle: 'Circular Sustainability & Eco-Rewards Platform',
+          category: 'uiux',
+          catLabel: 'UI/UX DESIGN SYSTEM',
+          cursor: 'UI/UX',
+          tools: ['Figma', 'Illustrator', 'Photoshop'],
+          desc: 'Circular sustainability & smart recycling rewards platform featuring gamified carbon impact tracking, intuitive onboarding flows, and accessible component design.',
+          highlights: 'Tools: Figma, Adobe Illustrator, Photoshop • Deliverables: UX Research & Flows, Impact Dashboard UI, Design System Tokens',
+          svg: `
+            <svg viewBox="0 0 480 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="480" height="300" fill="#08241d"/>
+              <circle cx="365" cy="150" r="115" fill="#10b981" fill-opacity="0.16"/>
+              <text x="28" y="42" fill="#34d399" font-family="Space Grotesk, sans-serif" font-size="8" font-weight="700" letter-spacing="1.6">SUSTAINABILITY UX PLATFORM</text>
+              <text x="28" y="98" fill="#ecfdf5" font-family="Syne, sans-serif" font-size="30" font-weight="800">VerdiLoop</text>
+              <text x="28" y="128" fill="#a7f3d0" font-family="Plus Jakarta Sans, sans-serif" font-size="10.5">Circular recycling rewards &amp; live</text>
+              <text x="28" y="143" fill="#a7f3d0" font-family="Plus Jakarta Sans, sans-serif" font-size="10.5">eco-impact analytics interface.</text>
+              <!-- Circular Loop Gauge -->
+              <g transform="translate(262, 38)">
+                <rect x="0" y="0" width="190" height="224" rx="20" fill="#0d3329" stroke="rgba(52,211,153,0.4)"/>
+                <circle cx="95" cy="96" r="48" stroke="rgba(255,255,255,0.12)" stroke-width="10"/>
+                <path d="M95 48 A48 48 0 1 1 52 118" stroke="#10b981" stroke-width="10" stroke-linecap="round"/>
+                <text x="72" y="102" fill="#ffffff" font-family="Syne, sans-serif" font-size="18" font-weight="800">78%</text>
+                <rect x="26" y="166" width="138" height="34" rx="10" fill="rgba(16,185,129,0.2)"/>
+                <text x="42" y="187" fill="#6ee7b7" font-family="Space Grotesk, sans-serif" font-size="9.5" font-weight="700">+1,240 GREEN PTS</text>
+              </g>
+            </svg>`
+        },
+        {
+          id: '12',
+          slug: '12_DeskSpace',
+          file: 'covers/12_DeskSpace.jpg',
+          title: 'DeskSpace',
+          subtitle: 'Modular Workspace & Studio Setup Configurator Web UI',
+          category: 'web',
+          catLabel: 'WEB & UI/UX DESIGN',
+          cursor: 'WEB UI',
+          tools: ['Figma', 'Photoshop', 'Illustrator'],
+          desc: 'Modular workspace & ergonomic studio setup configurator web experience with curated creator lookbooks, interactive desk-bundle builder, and clean e-commerce checkout.',
+          highlights: 'Tools: Figma, Adobe Photoshop, Illustrator • Deliverables: Responsive E-Commerce Web UI, Interactive Desk Builder, Visual Lookbook',
+          svg: `
+            <svg viewBox="0 0 480 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="480" height="300" fill="#11131a"/>
+              <circle cx="360" cy="140" r="120" fill="#7c5cff" fill-opacity="0.16"/>
+              <text x="28" y="42" fill="#a78bfa" font-family="Space Grotesk, sans-serif" font-size="8" font-weight="700" letter-spacing="1.6">WEB &amp; PRODUCT CONFIGURATOR</text>
+              <text x="28" y="98" fill="#ffffff" font-family="Syne, sans-serif" font-size="29" font-weight="800">DeskSpace</text>
+              <text x="28" y="128" fill="#94a3b8" font-family="Plus Jakarta Sans, sans-serif" font-size="10.5">Ergonomic studio furniture &amp; modular</text>
+              <text x="28" y="143" fill="#94a3b8" font-family="Plus Jakarta Sans, sans-serif" font-size="10.5">workspace configurator storefront.</text>
+              <rect x="28" y="172" width="124" height="30" rx="15" fill="#7c5cff"/>
+              <text x="44" y="191" fill="#ffffff" font-family="Space Grotesk, sans-serif" font-size="8.5" font-weight="700">BUILD YOUR DESK</text>
+              <!-- Minimal Studio Monitor & Desk Setup Illustration -->
+              <g transform="translate(248, 38)">
+                <rect x="0" y="0" width="204" height="224" rx="18" fill="#191c26" stroke="rgba(167,139,250,0.35)"/>
+                <rect x="44" y="44" width="116" height="72" rx="8" fill="#090b10" stroke="#a78bfa" stroke-width="2"/>
+                <rect x="94" y="116" width="16" height="24" fill="#64748b"/>
+                <rect x="74" y="138" width="56" height="5" rx="2.5" fill="#94a3b8"/>
+                <rect x="24" y="144" width="156" height="10" rx="4" fill="#d97706"/>
+                <rect x="34" y="154" width="8" height="44" fill="#475569"/>
+                <rect x="162" y="154" width="8" height="44" fill="#475569"/>
+              </g>
+            </svg>`
+        }
+      ];
+
+      // Store custom or loaded cover URLs per project index
+      const resolvedCoverUrls = new Array(projects.length).fill(null);
+
+      // Build unified cover markup (attempts real image file first, falls back cleanly to bespoke SVG)
+      function getCoverMarkup(idx, badgeText = '') {
+        const p = projects[idx];
+        const customUrl = resolvedCoverUrls[idx];
+        const imgSrc = customUrl || p.file;
+        return `
+          <div class="cover-art-wrap">
+            ${p.svg}
+            <img
+              class="real-cover-img"
+              src="${imgSrc}"
+              alt="${p.title} Cover"
+              onerror="this.style.display='none'"
+            />
+          </div>
+          ${badgeText ? `<span class="fan-featured-pill">${badgeText}</span>` : ''}
+        `;
+      }
+
+      // =========================================================================
+      // 2. RENDER ALL 12 PROJECT CARDS IN THE SHOWCASE GRID
+      // =========================================================================
+      const projectsGrid = document.getElementById('projectsGrid');
+      projectsGrid.innerHTML = projects.map((p, idx) => `
+        <article class="spotlight-card reveal" data-index="${idx}" data-category="${p.category}" data-cursor="${p.cursor}">
+          <div class="card-visual" id="cardVisual${idx}">
+            <span class="cat-tag">${p.catLabel}</span>
+            <span class="num-tag">${p.id} / 12</span>
+            <label class="upload-cover-label" title="Replace this project's cover image">
+              <span>+ Cover</span>
+              <input type="file" accept="image/*" class="cover-file-input" data-card="${idx}" hidden>
+            </label>
+            ${getCoverMarkup(idx)}
+          </div>
+          <div class="card-content">
+            <div>
+              <div class="tool-row">${p.tools.map(t => `<span>${t}</span>`).join('')}</div>
+              <h3>${p.title}</h3>
+              <p>${p.desc}</p>
+            </div>
+            <div class="card-actions">
+              <button type="button" class="inspect-btn" data-modal="${idx}">Quick Inspect</button>
+              <a href="https://www.behance.net/prathamvichare6" target="_blank" rel="noopener" class="behance-ext">View on Behance ↗</a>
+            </div>
+          </div>
+        </article>
+      `).join('');
+
+      // =========================================================================
+      // 3. RIGHT-SIDE HERO "SELECTED WORK (01 — 12)" FANNED COLLAGE LOGIC
+      // =========================================================================
+      const fanBack = document.getElementById('fanCardBack');
+      const fanMid = document.getElementById('fanCardMid');
+      const fanFront = document.getElementById('fanCardFront');
+      const collageCounter = document.getElementById('collageCounter');
+      const shuffleCollageBtn = document.getElementById('shuffleCollageBtn');
+
+      // Default trio matching user screenshot aesthetic (04 Kumo Matcha, 09 StorySprout, 01 Scoop Parade)
+      let fanTrio = [3, 8, 0];
+
+      function renderFannedCollage() {
+        const [backIdx, midIdx, frontIdx] = fanTrio;
+        fanBack.innerHTML = getCoverMarkup(backIdx);
+        fanMid.innerHTML = getCoverMarkup(midIdx);
+        fanFront.innerHTML = getCoverMarkup(frontIdx, `FEATURED / ${projects[frontIdx].id}`);
+        collageCounter.textContent = `${projects[frontIdx].id} — 12`;
+
+        fanBack.onclick = () => openProjectModal(backIdx);
+        fanMid.onclick = () => openProjectModal(midIdx);
+        fanFront.onclick = () => openProjectModal(frontIdx);
+      }
+
+      renderFannedCollage();
+
+      shuffleCollageBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        // Cycle forward smoothly through all 12 projects
+        fanTrio = [
+          (fanTrio[0] + 1) % projects.length,
+          (fanTrio[1] + 1) % projects.length,
+          (fanTrio[2] + 1) % projects.length
+        ];
+        renderFannedCollage();
+      });
+
+      // =========================================================================
+      // 4. SINGLE-CARD & BULK COVER IMAGE UPLOADER (Auto-matches ZIP filenames!)
+      // =========================================================================
+      function refreshCardVisual(idx) {
+        const visual = document.getElementById(`cardVisual${idx}`);
+        const p = projects[idx];
+        if (visual) {
+          visual.innerHTML = `
+            <span class="cat-tag">${p.catLabel}</span>
+            <span class="num-tag">${p.id} / 12</span>
+            <label class="upload-cover-label" title="Replace this project's cover image">
+              <span>+ Cover</span>
+              <input type="file" accept="image/*" class="cover-file-input" data-card="${idx}" hidden>
+            </label>
+            ${getCoverMarkup(idx)}
+          `;
+          bindSingleFileInput(visual.querySelector('.cover-file-input'));
+        }
+        renderFannedCollage();
+        if (modal.classList.contains('open') && activeModalIndex === idx) {
+          modalCoverPreview.innerHTML = getCoverMarkup(idx);
+        }
+      }
+
+      function applyCoverFile(idx, file) {
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+          resolvedCoverUrls[idx] = ev.target.result;
+          refreshCardVisual(idx);
+        };
+        reader.readAsDataURL(file);
+      }
+
+      function bindSingleFileInput(input) {
+        if (!input) return;
+        input.addEventListener('change', (e) => {
+          const idx = Number(input.getAttribute('data-card'));
+          applyCoverFile(idx, e.target.files[0]);
+        });
+      }
+
+      document.querySelectorAll('.cover-file-input').forEach(bindSingleFileInput);
+
+      // Bulk folder/multiple file loader: matches 01_Scoop_Parade.jpg ... 12_DeskSpace.jpg automatically
+      const bulkCoverInput = document.getElementById('bulkCoverInput');
+      bulkCoverInput.addEventListener('change', (e) => {
+        const files = Array.from(e.target.files || []);
+        files.forEach((file) => {
+          const lowerName = file.name.toLowerCase();
+          const matchedIndex = projects.findIndex((p) => {
+            const numPrefix = p.id; // "01" .. "12"
+            const cleanTitle = p.title.toLowerCase().replace(/\s+/g, '');
+            const cleanFile = lowerName.replace(/[_\-\s]+/g, '');
+            return lowerName.startsWith(numPrefix) || cleanFile.includes(cleanTitle);
+          });
+          if (matchedIndex !== -1) {
+            applyCoverFile(matchedIndex, file);
+          }
+        });
+      });
+
+      // =========================================================================
+      // 5. SCROLL PROGRESS BAR & CAREER TIMELINE FILL
+      // =========================================================================
+      const scrollProgress = document.getElementById('scrollProgress');
+      const timelineContainer = document.getElementById('timelineContainer');
+      const timelineFill = document.getElementById('timelineFill');
+
+      window.addEventListener('scroll', () => {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        scrollProgress.style.width = `${pct}%`;
+
+        if (timelineContainer && timelineFill) {
+          const rect = timelineContainer.getBoundingClientRect();
+          const winH = window.innerHeight;
+          const progress = Math.min(1, Math.max(0, (winH * 0.65 - rect.top) / rect.height));
+          timelineFill.style.height = `${progress * 100}%`;
+        }
+      });
+
+      // =========================================================================
+      // 6. INTERACTIVE HTML5 CANVAS CONSTELLATION NETWORK
+      // =========================================================================
+      const canvas = document.getElementById('constellationCanvas');
+      const ctx = canvas.getContext('2d');
+      let width = canvas.width = window.innerWidth;
+      let height = canvas.height = window.innerHeight;
+      const mouse = { x: -9999, y: -9999 };
+
+      window.addEventListener('resize', () => {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+      });
+      window.addEventListener('mousemove', (e) => {
+        mouse.x = e.clientX;
+        mouse.y = e.clientY;
+      });
+
+      const particles = Array.from({ length: 62 }, () => ({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * 0.55,
+        vy: (Math.random() - 0.5) * 0.55,
+        r: Math.random() * 1.8 + 0.8
+      }));
+
+      function animateConstellation() {
+        ctx.clearRect(0, 0, width, height);
+        for (let i = 0; i < particles.length; i++) {
+          const p = particles[i];
+          p.x += p.vx;
+          p.y += p.vy;
+          if (p.x < 0 || p.x > width) p.vx *= -1;
+          if (p.y < 0 || p.y > height) p.vy *= -1;
+
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(0, 229, 255, 0.55)';
+          ctx.fill();
+
+          const dxMouse = p.x - mouse.x;
+          const dyMouse = p.y - mouse.y;
+          const distMouse = Math.hypot(dxMouse, dyMouse);
+          if (distMouse < 180) {
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(mouse.x, mouse.y);
+            ctx.strokeStyle = `rgba(0, 229, 255, ${0.35 * (1 - distMouse / 180)})`;
+            ctx.lineWidth = 1;
+            ctx.stroke();
+          }
+
+          for (let j = i + 1; j < particles.length; j++) {
+            const p2 = particles[j];
+            const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+            if (dist < 130) {
+              ctx.beginPath();
+              ctx.moveTo(p.x, p.y);
+              ctx.lineTo(p2.x, p2.y);
+              ctx.strokeStyle = `rgba(124, 92, 255, ${0.19 * (1 - dist / 130)})`;
+              ctx.lineWidth = 0.8;
+              ctx.stroke();
+            }
+          }
+        }
+        requestAnimationFrame(animateConstellation);
+      }
+      animateConstellation();
+
+      // =========================================================================
+      // 7. DYNAMIC SPOTLIGHT RING CURSOR + MAGNETIC PULL + CLICK SPARKLES
+      // =========================================================================
+      const cursorDot = document.getElementById('cursorDot');
+      const cursorRing = document.getElementById('cursorRing');
+
+      window.addEventListener('mousemove', (e) => {
+        cursorDot.style.left = `${e.clientX}px`;
+        cursorDot.style.top = `${e.clientY}px`;
+        cursorRing.animate(
+          { left: `${e.clientX}px`, top: `${e.clientY}px` },
+          { duration: 260, fill: 'forwards' }
+        );
+      });
+
+      function bindCursorHover(el) {
+        el.addEventListener('mouseenter', () => {
+          cursorRing.textContent = el.getAttribute('data-cursor');
+          cursorRing.classList.add('active-label');
+          cursorDot.style.opacity = '0';
+        });
+        el.addEventListener('mouseleave', () => {
+          cursorRing.textContent = '';
+          cursorRing.classList.remove('active-label');
+          cursorDot.style.opacity = '1';
+        });
+      }
+      document.querySelectorAll('[data-cursor]').forEach(bindCursorHover);
+
+      document.querySelectorAll('.magnetic').forEach((btn) => {
+        btn.addEventListener('mousemove', (e) => {
+          const rect = btn.getBoundingClientRect();
+          const x = (e.clientX - rect.left - rect.width / 2) * 0.28;
+          const y = (e.clientY - rect.top - rect.height / 2) * 0.28;
+          btn.style.transform = `translate(${x}px, ${y}px)`;
+        });
+        btn.addEventListener('mouseleave', () => {
+          btn.style.transform = 'translate(0px, 0px)';
+        });
+      });
+
+      const burstColors = ['#00e5ff', '#7c5cff', '#ff3e8a', '#ffffff'];
+      document.addEventListener('click', (e) => {
+        for (let i = 0; i < 10; i++) {
+          const spark = document.createElement('span');
+          spark.className = 'sparkle-particle';
+          const angle = (Math.PI * 2 * i) / 10 + (Math.random() - 0.5) * 0.4;
+          const velocity = 28 + Math.random() * 34;
+          spark.style.left = `${e.clientX}px`;
+          spark.style.top = `${e.clientY}px`;
+          spark.style.background = burstColors[i % burstColors.length];
+          spark.style.setProperty('--tx', `${Math.cos(angle) * velocity}px`);
+          spark.style.setProperty('--ty', `${Math.sin(angle) * velocity}px`);
+          document.body.appendChild(spark);
+          setTimeout(() => spark.remove(), 680);
+        }
+      });
+
+      // =========================================================================
+      // 8. RADIAL SPOTLIGHT BORDER + 3D TILT PHYSICS ON ALL 12 CARDS
+      // =========================================================================
+      document.querySelectorAll('.spotlight-card').forEach((card) => {
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          card.style.setProperty('--mouse-x', `${x}px`);
+          card.style.setProperty('--mouse-y', `${y}px`);
+
+          const normX = x / rect.width - 0.5;
+          const normY = y / rect.height - 0.5;
+          card.style.transform = `perspective(1000px) rotateY(${normX * 7}deg) rotateX(${-normY * 7}deg) translateY(-6px)`;
+        });
+        card.addEventListener('mouseleave', () => {
+          card.style.transform = 'perspective(1000px) rotateY(0deg) rotateX(0deg) translateY(0px)';
+        });
+      });
+
+      // =========================================================================
+      // 9. CATEGORY FILTERING TABS
+      // =========================================================================
+      const tabBtns = document.querySelectorAll('.tab-btn');
+      const cards = document.querySelectorAll('.spotlight-card');
+
+      tabBtns.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          tabBtns.forEach((b) => b.classList.remove('active'));
+          btn.classList.add('active');
+          const filter = btn.getAttribute('data-filter');
+          let visibleIdx = 0;
+
+          cards.forEach((card) => {
+            card.classList.remove('filter-pop');
+            if (filter === 'all' || card.getAttribute('data-category') === filter) {
+              card.classList.remove('hidden-card');
+              card.style.animationDelay = `${visibleIdx * 0.05}s`;
+              void card.offsetWidth;
+              card.classList.add('filter-pop');
+              visibleIdx++;
+            } else {
+              card.classList.add('hidden-card');
+            }
+          });
+        });
+      });
+
+      // =========================================================================
+      // 10. QUICK-INSPECT MODAL
+      // =========================================================================
+      const modal = document.getElementById('projectModal');
+      const closeModalBtn = document.getElementById('closeModal');
+      const modalCoverPreview = document.getElementById('modalCoverPreview');
+      const modalFileInput = document.getElementById('modalFileInput');
+      let activeModalIndex = 0;
+
+      function openProjectModal(idx) {
+        activeModalIndex = idx;
+        const item = projects[idx];
+        modalCoverPreview.innerHTML = getCoverMarkup(idx);
+        document.getElementById('modalCategory').textContent = `${item.id} / 12 • ${item.catLabel}`;
+        document.getElementById('modalTitle').textContent = `${item.title} — ${item.subtitle}`;
+        document.getElementById('modalDesc').textContent = item.desc;
+        document.getElementById('modalHighlights').textContent = item.highlights;
+        modal.classList.add('open');
+      }
+
+      document.querySelectorAll('.inspect-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          openProjectModal(Number(btn.getAttribute('data-modal')));
+        });
+      });
+
+      modalFileInput.addEventListener('change', (e) => {
+        applyCoverFile(activeModalIndex, e.target.files[0]);
+      });
+
+      closeModalBtn.addEventListener('click', () => modal.classList.remove('open'));
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) modal.classList.remove('open');
+      });
+
+      // =========================================================================
+      // 11. STAGGERED SCROLL REVEAL OBSERVER
+      // =========================================================================
+      const revealEls = document.querySelectorAll('.reveal');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, idx) => {
+          if (entry.isIntersecting) {
+            entry.target.style.transitionDelay = `${(idx % 3) * 0.07}s`;
+            entry.target.classList.add('in-view');
+          }
+        });
+      }, { threshold: 0.08 });
+
+      revealEls.forEach((el) => observer.observe(el));
+    } catch (err) {
+      console.error('Portfolio initialization error:', err);
+    }
+  </script>
+</body>
+</html>
