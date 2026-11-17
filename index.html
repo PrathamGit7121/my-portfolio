@@ -277,9 +277,7 @@
       border-color: var(--pink);
     }
 
-    /* =========================================================================
-       HERO SPLIT LAYOUT (Fixes Text Overlap Completely + Fanned Collage)
-       ========================================================================= */
+    /* Hero Split Layout */
     .hero {
       position: relative;
       z-index: 2;
@@ -294,7 +292,7 @@
     }
 
     .hero-left {
-      min-width: 0; /* Prevents grid blowout & ensures headline wraps cleanly without overlapping right column */
+      min-width: 0;
       position: relative;
       z-index: 3;
     }
@@ -427,7 +425,7 @@
     .ic-cd { background: #0b2e13; color: #4cd964; border: 1px solid #4cd964; }
     .ic-fg { background: #1e192b; color: #a259ff; border: 1px solid #a259ff; }
 
-    /* Right-Side Hero Selected Work Fanned Collage */
+    /* Right-Side Hero Selected Work Fanned Animated Collage */
     .hero-right {
       min-width: 0;
       display: flex;
@@ -465,24 +463,6 @@
       letter-spacing: 0.12em;
       color: var(--text);
     }
-    .shuffle-mini-btn {
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid var(--border);
-      color: var(--cyan);
-      padding: 0.28rem 0.65rem;
-      border-radius: 999px;
-      font-family: var(--font-heading);
-      font-size: 0.72rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.25s ease;
-    }
-    .shuffle-mini-btn:hover {
-      background: var(--cyan);
-      color: #05060a;
-      border-color: var(--cyan);
-      transform: scale(1.05);
-    }
 
     .fanned-stage {
       position: relative;
@@ -491,7 +471,6 @@
       display: grid;
       place-items: center;
     }
-    /* Subtle radial ring behind fanned cards */
     .fanned-stage::before {
       content: "";
       position: absolute;
@@ -512,23 +491,25 @@
       border: 1px solid rgba(255, 255, 255, 0.16);
       box-shadow: 0 24px 50px rgba(0, 0, 0, 0.7);
       cursor: pointer;
-      transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+      background: #0d101b;
+      /* Smooth transition when auto-cycling cards */
+      transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+                  opacity 0.5s ease,
                   box-shadow 0.4s ease,
                   border-color 0.3s ease;
-      background: #0d101b;
     }
 
-    /* Card 1 (Back-Top Right Tilt - e.g. Kumo Matcha) */
+    /* Card 1 (Back-Top Right Tilt) */
     .fan-card.pos-back {
       transform: translate(18px, -74px) rotate(6.5deg) scale(0.95);
       z-index: 1;
     }
-    /* Card 2 (Middle-Left Tilt - e.g. StorySprout) */
+    /* Card 2 (Middle-Left Tilt) */
     .fan-card.pos-mid {
       transform: translate(-22px, -6px) rotate(-5.5deg) scale(0.98);
       z-index: 2;
     }
-    /* Card 3 (Front-Bottom Tilt - e.g. Scoop Parade / Featured) */
+    /* Card 3 (Front-Bottom Tilt) */
     .fan-card.pos-front {
       transform: translate(12px, 68px) rotate(2.5deg) scale(1.01);
       z-index: 3;
@@ -573,7 +554,7 @@
     .collage-footer {
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: flex-start;
       gap: 0.75rem;
       margin-top: 1.15rem;
       padding: 0 0.35rem;
@@ -591,25 +572,6 @@
       font-size: 1.05rem;
       display: inline-block;
       animation: spinSlow 12s linear infinite;
-    }
-    .zip-load-btn {
-      background: rgba(0, 229, 255, 0.08);
-      border: 1px solid rgba(0, 229, 255, 0.3);
-      color: var(--cyan);
-      padding: 0.36rem 0.85rem;
-      border-radius: 999px;
-      font-family: var(--font-heading);
-      font-size: 0.74rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.25s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-    }
-    .zip-load-btn:hover {
-      background: var(--cyan);
-      color: #05060a;
     }
 
     /* Dual-Row Infinite Kinetic Marquee Ribbon */
@@ -697,7 +659,7 @@
       box-shadow: 0 6px 18px rgba(255, 255, 255, 0.18);
     }
 
-    /* Spotlight Cards Grid (12 Projects) */
+    /* Spotlight Cards Grid */
     .behance-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
@@ -729,7 +691,6 @@
       to { opacity: 1; transform: scale(1) translateY(0); }
     }
 
-    /* Radial Spotlight Layer */
     .spotlight-card::before {
       content: "";
       position: absolute;
@@ -752,7 +713,6 @@
     }
     .spotlight-card:hover::before { opacity: 1; }
 
-    /* Cover Artwork Stage */
     .card-visual {
       aspect-ratio: 16 / 10;
       width: 100%;
@@ -764,7 +724,6 @@
       background: #090b13;
     }
 
-    /* Diagonal Glass Shimmer Sweep on Cover Hover */
     .card-visual::after {
       content: "";
       position: absolute;
@@ -810,7 +769,6 @@
       z-index: 4;
     }
 
-    /* Upload Custom Cover Image Button on Card */
     .upload-cover-label {
       position: absolute;
       top: 0.85rem; right: 0.85rem;
@@ -918,7 +876,7 @@
     }
     .behance-ext:hover { text-decoration: underline; transform: translateX(2px); }
 
-    /* Resume-Only Experience & Personal Info Section with Scroll Timeline */
+    /* Resume Experience & Personal Info Section */
     .resume-grid {
       display: grid; grid-template-columns: 1.35fr 0.9fr; gap: 2.5rem;
     }
@@ -1065,7 +1023,6 @@
       .fan-card.pos-mid { transform: translate(-14px, -4px) rotate(-5deg) scale(0.97); }
       .fan-card.pos-front { transform: translate(8px, 48px) rotate(2.5deg) scale(1); }
       .behance-grid { grid-template-columns: 1fr; }
-      .collage-footer { flex-direction: column; align-items: flex-start; }
     }
   </style>
 </head>
@@ -1117,7 +1074,7 @@
     </div>
   </header>
 
-  <!-- Hero Split Section (Left: Headline & CTA | Right: Selected Work 01—12 Fanned Collage) -->
+  <!-- Hero Split Section -->
   <section class="hero">
     <div class="hero-left">
       <div class="status-chip">
@@ -1153,22 +1110,18 @@
       </div>
     </div>
 
-    <!-- Right-Side Hero Fanned Selected Work Collage -->
+    <!-- Right-Side Hero Fanned Animated Collage -->
     <div class="hero-right">
       <div class="collage-header">
         <span class="collage-kicker">SELECTED WORK</span>
         <div class="collage-controls">
           <span class="collage-counter" id="collageCounter">01 — 12</span>
-          <button type="button" class="shuffle-mini-btn" id="shuffleCollageBtn" data-cursor="SHUFFLE">Shuffle ↻</button>
         </div>
       </div>
 
       <div class="fanned-stage" id="fannedStage">
-        <!-- Back Card (Default: 04 Kumo Matcha) -->
         <div class="fan-card pos-back" id="fanCardBack" data-cursor="INSPECT"></div>
-        <!-- Middle Card (Default: 09 StorySprout) -->
         <div class="fan-card pos-mid" id="fanCardMid" data-cursor="INSPECT"></div>
-        <!-- Front Hero Card (Default: 01 Scoop Parade) -->
         <div class="fan-card pos-front" id="fanCardFront" data-cursor="INSPECT"></div>
       </div>
 
@@ -1177,10 +1130,6 @@
           <span class="asterisk-icon">✳</span>
           <span>Designed to be explored.</span>
         </div>
-        <label class="zip-load-btn" title="Select your covers folder or multiple JPG/PNG cover files to auto-fill all 12 cards">
-          <span>+ Load Covers Folder</span>
-          <input type="file" id="bulkCoverInput" accept="image/*" multiple hidden>
-        </label>
       </div>
     </div>
   </section>
@@ -1192,8 +1141,8 @@
       <div class="marquee-item">SCOOP PARADE <span class="accent">✦</span> KUMO MATCHA <span class="pink">✦</span> STORYSPROUT <span class="accent">✦</span> LANEFORM <span class="pink">✦</span> BRINEFIRE KITCHEN <span class="accent">✦</span> VOLTROUTE <span class="pink">✦</span></div>
     </div>
     <div class="marquee-track reverse">
-      <div class="marquee-item">COURTFORM BUILDERS <span class="pink">◆</span> VEILFORM <span class="accent">◆</span> STRAW HAT CREW <span class="pink">◆</span> DAWNFOLD COFFEE <span class="accent">◆</span> VERDILOOP <span class="pink">◆</span> DESKSPACE <span class="accent">◆</span></div>
-      <div class="marquee-item">COURTFORM BUILDERS <span class="pink">◆</span> VEILFORM <span class="accent">◆</span> STRAW HAT CREW <span class="pink">◆</span> DAWNFOLD COFFEE <span class="accent">◆</span> VERDILOOP <span class="pink">◆</span> DESKSPACE <span class="accent">◆</span></div>
+      <div class="marquee-item">COURTFORM BUILDERS <span class="pink">◆</span> VEILFORM <span class="accent">◆</span> STRAW HAT CREW <span class="pink">◆</span> DAWNFOLD COFFEE <span class="accent">◆</span> VERDILOOP <span class="pink">◆</span> DESKSPACE <span class="pink">◆</span></div>
+      <div class="marquee-item">COURTFORM BUILDERS <span class="pink">◆</span> VEILFORM <span class="accent">◆</span> STRAW HAT CREW <span class="pink">◆</span> DAWNFOLD COFFEE <span class="accent">◆</span> VERDILOOP <span class="pink">◆</span> DESKSPACE <span class="pink">◆</span></div>
     </div>
   </div>
 
@@ -1217,7 +1166,7 @@
     <div class="behance-grid" id="projectsGrid"></div>
   </section>
 
-  <!-- Resume-Only Experience & Personal Info Section -->
+  <!-- Resume Experience & Personal Info Section -->
   <section class="section" id="experience-info">
     <div class="sec-head">
       <div>
@@ -1325,19 +1274,13 @@
       <div id="modalHighlights" style="background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: 14px; padding: 1rem; margin-bottom: 1.5rem; font-size: 0.9rem;"></div>
       <div style="display: flex; gap: 0.85rem; flex-wrap: wrap; align-items: center;">
         <a href="https://www.behance.net/prathamvichare6" target="_blank" rel="noopener" class="behance-pill">Open Full Case Study on Behance ↗</a>
-        <label class="inspect-btn" style="cursor: pointer;">
-          Replace Cover Image
-          <input type="file" accept="image/*" id="modalFileInput" hidden>
-        </label>
       </div>
     </div>
   </div>
 
   <script>
     try {
-      // =========================================================================
-      // 1. ALL 12 PROJECTS FROM PORTFOLIO_COVERS_AND_CARD_TEXT.ZIP
-      // =========================================================================
+      // 1. ALL 12 PROJECTS
       const projects = [
         {
           id: '01',
@@ -1361,22 +1304,12 @@
               <text x="28" y="130" fill="#fbcfe8" font-family="Syne, sans-serif" font-size="31" font-weight="800">Parade</text>
               <text x="28" y="158" fill="#f472b6" font-family="Plus Jakarta Sans, sans-serif" font-size="10.5">Small-batch artisanal gelato &amp; waffle</text>
               <text x="28" y="173" fill="#f472b6" font-family="Plus Jakarta Sans, sans-serif" font-size="10.5">parlor identity crafted in Mumbai.</text>
-              <rect x="28" y="192" width="54" height="18" rx="9" fill="rgba(255,255,255,0.1)"/>
-              <text x="38" y="204" fill="#fff" font-family="Space Grotesk, sans-serif" font-size="7.5">Packaging</text>
-              <rect x="88" y="192" width="52" height="18" rx="9" fill="rgba(255,255,255,0.1)"/>
-              <text x="98" y="204" fill="#fff" font-family="Space Grotesk, sans-serif" font-size="7.5">Identity</text>
-              <!-- Artisanal Ice Cream Cup & Scoops Illustration -->
               <g transform="translate(272, 42)">
                 <rect x="12" y="14" width="166" height="214" rx="22" fill="#fdf2f8" fill-opacity="0.1" stroke="rgba(251,207,232,0.3)"/>
-                <!-- Waffle Cone -->
                 <polygon points="62,132 128,132 95,212" fill="#f59e0b"/>
-                <line x1="72" y1="146" x2="112" y2="174" stroke="#b45309" stroke-width="1.5"/>
-                <line x1="118" y1="146" x2="78" y2="174" stroke="#b45309" stroke-width="1.5"/>
-                <!-- Triple Gelato Scoops -->
                 <circle cx="80" cy="116" r="28" fill="#fb7185"/>
                 <circle cx="112" cy="116" r="28" fill="#fde047"/>
                 <circle cx="96" cy="84" r="28" fill="#38bdf8"/>
-                <circle cx="96" cy="52" r="7" fill="#e11d48"/>
               </g>
             </svg>`
         },
@@ -1395,23 +1328,14 @@
           svg: `
             <svg viewBox="0 0 480 300" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect width="480" height="300" fill="#0b1320"/>
-              <g stroke="rgba(56,189,248,0.08)" stroke-width="1">
-                <line x1="0" y1="75" x2="480" y2="75"/><line x1="0" y1="150" x2="480" y2="150"/><line x1="0" y1="225" x2="480" y2="225"/>
-                <line x1="120" y1="0" x2="120" y2="300"/><line x1="240" y1="0" x2="240" y2="300"/><line x1="360" y1="0" x2="360" y2="300"/>
-              </g>
               <text x="28" y="42" fill="#38bdf8" font-family="Space Grotesk, sans-serif" font-size="8" font-weight="700" letter-spacing="1.6">MOBILITY &amp; WAYFINDING</text>
               <text x="28" y="102" fill="#f8fafc" font-family="Syne, sans-serif" font-size="30" font-weight="800">Laneform</text>
               <text x="28" y="132" fill="#94a3b8" font-family="Plus Jakarta Sans, sans-serif" font-size="10.5">Modular transit identity &amp; directional</text>
               <text x="28" y="147" fill="#94a3b8" font-family="Plus Jakarta Sans, sans-serif" font-size="10.5">signage system for urban corridors.</text>
-              <rect x="28" y="172" width="164" height="36" rx="10" fill="#eab308"/>
-              <text x="42" y="194" fill="#090d16" font-family="Space Grotesk, sans-serif" font-size="11" font-weight="800" letter-spacing="1">LINE 04 → EXPRESS</text>
-              <!-- Wayfinding Totem Graphic -->
               <g transform="translate(268, 38)">
                 <rect x="14" y="10" width="164" height="224" rx="20" fill="#111c2e" stroke="rgba(56,189,248,0.35)" stroke-width="1.4"/>
                 <path d="M52 72 H118 L142 96 L118 120 H52 Z" fill="#38bdf8"/>
                 <path d="M52 138 H134 V178 H52 Z" fill="#eab308"/>
-                <text x="64" y="101" fill="#090d16" font-family="Syne, sans-serif" font-weight="800" font-size="13">NORTH</text>
-                <text x="64" y="163" fill="#090d16" font-family="Syne, sans-serif" font-weight="800" font-size="13">GATE B2</text>
               </g>
             </svg>`
         },
@@ -1430,21 +1354,13 @@
           svg: `
             <svg viewBox="0 0 480 300" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect width="480" height="300" fill="#1c110a"/>
-              <circle cx="380" cy="80" r="130" fill="#ea580c" fill-opacity="0.18"/>
               <text x="28" y="42" fill="#fb923c" font-family="Space Grotesk, sans-serif" font-size="8" font-weight="700" letter-spacing="1.6">EDITORIAL WEB DESIGN</text>
               <text x="28" y="96" fill="#fff7ed" font-family="Syne, sans-serif" font-size="28" font-weight="800">Brinefire</text>
               <text x="28" y="128" fill="#fdba74" font-family="Syne, sans-serif" font-size="28" font-weight="800">Kitchen</text>
-              <text x="28" y="156" fill="#cbd5e1" font-family="Plus Jakarta Sans, sans-serif" font-size="10.5">Coastal wood-fired dining &amp; tasting</text>
-              <text x="28" y="171" fill="#cbd5e1" font-family="Plus Jakarta Sans, sans-serif" font-size="10.5">menu web experience.</text>
-              <rect x="28" y="192" width="116" height="30" rx="15" fill="#ea580c"/>
-              <text x="45" y="211" fill="#fff" font-family="Space Grotesk, sans-serif" font-size="9.5" font-weight="700">RESERVE TABLE</text>
-              <!-- Web Browser & Culinary Plate Preview -->
               <g transform="translate(248, 42)">
                 <rect x="0" y="0" width="204" height="216" rx="18" fill="#120b07" stroke="rgba(251,146,60,0.35)"/>
                 <circle cx="102" cy="108" r="64" fill="#29180e" stroke="#fb923c" stroke-width="1.5"/>
                 <circle cx="102" cy="108" r="44" fill="#ea580c" fill-opacity="0.35"/>
-                <path d="M76 112 Q102 74 128 112 Q102 138 76 112 Z" fill="#fdba74"/>
-                <text x="58" y="194" fill="#fed7aa" font-family="Space Grotesk, sans-serif" font-size="9" letter-spacing="1.2">CHEF'S FIRE TABLE</text>
               </g>
             </svg>`
         },
@@ -1463,22 +1379,12 @@
           svg: `
             <svg viewBox="0 0 480 300" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect width="480" height="300" fill="#1e3518"/>
-              <rect x="0" y="0" width="275" height="300" fill="#f3f5ec"/>
               <text x="26" y="42" fill="#4d7c0f" font-family="Space Grotesk, sans-serif" font-size="8" font-weight="700" letter-spacing="1.6">ARTISANAL MATCHA CAFE</text>
-              <text x="24" y="114" fill="#29471e" font-family="Syne, sans-serif" font-size="44" font-weight="800" letter-spacing="-1">KUMO</text>
-              <text x="26" y="140" fill="#4d7c0f" font-family="Space Grotesk, sans-serif" font-size="13" font-weight="700" letter-spacing="5">MATCHA</text>
-              <text x="26" y="176" fill="#4b5563" font-family="Plus Jakarta Sans, sans-serif" font-size="10.5">Ceremonial Uji grade matcha bar,</text>
-              <text x="26" y="191" fill="#4b5563" font-family="Plus Jakarta Sans, sans-serif" font-size="10.5">packaging tins &amp; visual system.</text>
-              <rect x="26" y="212" width="82" height="22" rx="11" fill="#29471e"/>
-              <text x="41" y="226" fill="#f3f5ec" font-family="Space Grotesk, sans-serif" font-size="8" font-weight="700">KYOTO • UJI</text>
-              <!-- Iced Matcha Cup Visual on Right -->
+              <text x="24" y="114" fill="#f3f5ec" font-family="Syne, sans-serif" font-size="44" font-weight="800" letter-spacing="-1">KUMO</text>
+              <text x="26" y="140" fill="#84cc16" font-family="Space Grotesk, sans-serif" font-size="13" font-weight="700" letter-spacing="5">MATCHA</text>
               <g transform="translate(292, 36)">
                 <path d="M36 62 H134 L120 226 H50 Z" fill="rgba(255,255,255,0.18)" stroke="rgba(255,255,255,0.45)" stroke-width="1.5"/>
                 <path d="M41 114 H129 L120 224 H50 Z" fill="#65a30d"/>
-                <path d="M40 94 H130 L129 118 H41 Z" fill="#ecfccb"/>
-                <rect x="46" y="138" width="78" height="36" rx="6" fill="#f3f5ec"/>
-                <text x="61" y="160" fill="#29471e" font-family="Syne, sans-serif" font-weight="800" font-size="13">KUMO</text>
-                <ellipse cx="32" cy="48" rx="22" ry="11" transform="rotate(-28 32 48)" fill="#84cc16"/>
               </g>
             </svg>`
         },
@@ -1500,18 +1406,9 @@
               <text x="28" y="42" fill="#38bdf8" font-family="Space Grotesk, sans-serif" font-size="8" font-weight="700" letter-spacing="1.6">ARCHITECTURAL WEB UI</text>
               <text x="28" y="96" fill="#f8fafc" font-family="Syne, sans-serif" font-size="27" font-weight="800">Courtform</text>
               <text x="28" y="126" fill="#93c5fd" font-family="Syne, sans-serif" font-size="27" font-weight="800">Builders</text>
-              <text x="28" y="156" fill="#94a3b8" font-family="Plus Jakarta Sans, sans-serif" font-size="10.5">Precision sports courts &amp; modern</text>
-              <text x="28" y="171" fill="#94a3b8" font-family="Plus Jakarta Sans, sans-serif" font-size="10.5">architectural engineering portal.</text>
-              <rect x="28" y="194" width="118" height="28" rx="8" fill="#0284c7"/>
-              <text x="42" y="212" fill="#fff" font-family="Space Grotesk, sans-serif" font-size="8.5" font-weight="700">VIEW BLUEPRINTS</text>
-              <!-- Court Architectural Line Diagram -->
               <g transform="translate(248, 38)">
                 <rect x="0" y="0" width="204" height="224" rx="18" fill="#13293d" stroke="rgba(56,189,248,0.4)"/>
                 <rect x="24" y="24" width="156" height="176" rx="6" stroke="#38bdf8" stroke-width="1.8"/>
-                <line x1="24" y1="112" x2="180" y2="112" stroke="#38bdf8" stroke-width="1.5"/>
-                <circle cx="102" cy="112" r="24" stroke="#f59e0b" stroke-width="1.8"/>
-                <rect x="64" y="24" width="76" height="36" stroke="#38bdf8" stroke-width="1.4"/>
-                <rect x="64" y="164" width="76" height="36" stroke="#38bdf8" stroke-width="1.4"/>
               </g>
             </svg>`
         },
@@ -1530,25 +1427,12 @@
           svg: `
             <svg viewBox="0 0 480 300" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect width="480" height="300" fill="#18181b"/>
-              <circle cx="380" cy="220" r="130" fill="#a78bfa" fill-opacity="0.14"/>
               <text x="28" y="42" fill="#c4b5fd" font-family="Space Grotesk, sans-serif" font-size="8" font-weight="700" letter-spacing="1.6">UI/UX DESIGN SYSTEM</text>
               <text x="28" y="98" fill="#fafafa" font-family="Syne, sans-serif" font-size="31" font-weight="800">Veilform</text>
-              <text x="28" y="130" fill="#a1a1aa" font-family="Plus Jakarta Sans, sans-serif" font-size="10.5">Modular acoustic architecture &amp;</text>
-              <text x="28" y="145" fill="#a1a1aa" font-family="Plus Jakarta Sans, sans-serif" font-size="10.5">spatial product configurator UI.</text>
-              <!-- Swatch Chips -->
-              <circle cx="40" cy="182" r="10" fill="#e4e4e7"/>
-              <circle cx="68" cy="182" r="10" fill="#a78bfa"/>
-              <circle cx="96" cy="182" r="10" fill="#52525b"/>
-              <circle cx="124" cy="182" r="10" fill="#27272a" stroke="#fff" stroke-width="1"/>
-              <!-- Acoustic Slats Card -->
               <g transform="translate(248, 38)">
                 <rect x="0" y="0" width="204" height="224" rx="18" fill="#27272a" stroke="rgba(196,181,253,0.35)"/>
                 <rect x="26" y="32" width="14" height="160" rx="7" fill="#c4b5fd"/>
-                <rect x="52" y="48" width="14" height="128" rx="7" fill="#a1a1aa"/>
                 <rect x="78" y="26" width="14" height="172" rx="7" fill="#fafafa"/>
-                <rect x="104" y="44" width="14" height="136" rx="7" fill="#8b5cf6"/>
-                <rect x="130" y="34" width="14" height="156" rx="7" fill="#e4e4e7"/>
-                <rect x="156" y="54" width="14" height="116" rx="7" fill="#71717a"/>
               </g>
             </svg>`
         },
@@ -1567,17 +1451,11 @@
           svg: `
             <svg viewBox="0 0 480 300" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect width="480" height="300" fill="#1e1b4b"/>
-              <circle cx="355" cy="145" r="105" fill="#facc15" fill-opacity="0.9"/>
               <text x="28" y="42" fill="#facc15" font-family="Space Grotesk, sans-serif" font-size="8" font-weight="700" letter-spacing="1.6">VECTOR ILLUSTRATION</text>
               <text x="28" y="96" fill="#ffffff" font-family="Syne, sans-serif" font-size="28" font-weight="800">Straw Hat</text>
-              <text x="28" y="128" fill="#f87171" font-family="Syne, sans-serif" font-size="28" font-weight="800">Crew Art</text>
-              <text x="28" y="156" fill="#cbd5e1" font-family="Plus Jakarta Sans, sans-serif" font-size="10.5">Cel-shaded vector poster series &amp;</text>
-              <text x="28" y="171" fill="#cbd5e1" font-family="Plus Jakarta Sans, sans-serif" font-size="10.5">collectible character graphics.</text>
-              <!-- Iconic Straw Hat Vector Emblem -->
               <g transform="translate(268, 72)">
                 <path d="M36 92 C36 42, 138 42, 138 92 Z" fill="#fde047" stroke="#0f172a" stroke-width="3"/>
                 <rect x="38" y="76" width="98" height="14" fill="#ef4444" stroke="#0f172a" stroke-width="2.5"/>
-                <ellipse cx="87" cy="96" rx="82" ry="18" fill="#facc15" stroke="#0f172a" stroke-width="3"/>
               </g>
             </svg>`
         },
@@ -1596,20 +1474,11 @@
           svg: `
             <svg viewBox="0 0 480 300" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect width="480" height="300" fill="#271710"/>
-              <rect x="0" y="0" width="250" height="300" fill="#321d14"/>
               <text x="28" y="42" fill="#f59e0b" font-family="Space Grotesk, sans-serif" font-size="8" font-weight="700" letter-spacing="1.6">SPECIALTY ROASTERY</text>
               <text x="28" y="96" fill="#fef3c7" font-family="Syne, sans-serif" font-size="28" font-weight="800">Dawnfold</text>
-              <text x="28" y="128" fill="#fbbf24" font-family="Syne, sans-serif" font-size="28" font-weight="800">Coffee</text>
-              <text x="28" y="156" fill="#d6d3d1" font-family="Plus Jakarta Sans, sans-serif" font-size="10.5">Single-origin micro-lot pouch</text>
-              <text x="28" y="171" fill="#d6d3d1" font-family="Plus Jakarta Sans, sans-serif" font-size="10.5">packaging &amp; roastery identity.</text>
-              <!-- Coffee Pouch Illustration -->
               <g transform="translate(278, 36)">
                 <rect x="18" y="12" width="148" height="218" rx="16" fill="#d97706"/>
                 <rect x="34" y="54" width="116" height="122" rx="10" fill="#fef3c7"/>
-                <circle cx="92" cy="88" r="18" fill="#78350f"/>
-                <text x="52" y="126" fill="#451a03" font-family="Syne, sans-serif" font-size="12" font-weight="800">DAWNFOLD</text>
-                <text x="56" y="144" fill="#92400e" font-family="Space Grotesk, sans-serif" font-size="8" font-weight="700">CHIKMAGALUR</text>
-                <text x="64" y="160" fill="#b45309" font-family="Space Grotesk, sans-serif" font-size="7.5">MEDIUM ROAST</text>
               </g>
             </svg>`
         },
@@ -1628,25 +1497,9 @@
           svg: `
             <svg viewBox="0 0 480 300" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect width="480" height="300" fill="#133827"/>
-              <rect x="235" y="0" width="245" height="300" fill="#86efac"/>
-              <!-- Whimsical Forest Trees Right -->
-              <circle cx="310" cy="70" r="65" fill="#22c55e"/>
-              <circle cx="395" cy="60" r="72" fill="#16a34a"/>
-              <circle cx="445" cy="115" r="55" fill="#15803d"/>
-              <rect x="335" y="110" width="16" height="120" fill="#713f12"/>
               <text x="26" y="42" fill="#86efac" font-family="Space Grotesk, sans-serif" font-size="7.5" font-weight="700" letter-spacing="1.4">PRODUCT DESIGN / UI &amp; UX</text>
               <text x="26" y="88" fill="#ffffff" font-family="Syne, sans-serif" font-size="25" font-weight="800">Storysprout</text>
-              <text x="26" y="116" fill="#bbf7d0" font-family="Plus Jakarta Sans, sans-serif" font-size="14" font-weight="600">Little stories.</text>
-              <text x="26" y="135" fill="#bbf7d0" font-family="Plus Jakarta Sans, sans-serif" font-size="14" font-weight="600">Big world.</text>
-              <text x="26" y="164" fill="#a7f3d0" font-family="Plus Jakarta Sans, sans-serif" font-size="9.5">Illustrated tablet reading app</text>
-              <text x="26" y="178" fill="#a7f3d0" font-family="Plus Jakarta Sans, sans-serif" font-size="9.5">crafted for kids &amp; families.</text>
-              <!-- Tablet Story Cards Preview -->
               <rect x="242" y="162" width="110" height="112" rx="12" fill="#ffffff" stroke="#14532d" stroke-width="2"/>
-              <rect x="252" y="192" width="90" height="52" rx="6" fill="#fde047"/>
-              <text x="254" y="182" fill="#14532d" font-family="Space Grotesk, sans-serif" font-size="7.5" font-weight="700">What shall we read?</text>
-              <rect x="362" y="148" width="106" height="118" rx="12" fill="#ffffff" stroke="#14532d" stroke-width="2"/>
-              <rect x="372" y="176" width="86" height="56" rx="6" fill="#4ade80"/>
-              <text x="374" y="168" fill="#14532d" font-family="Space Grotesk, sans-serif" font-size="7.5" font-weight="700">The Lantern Fox</text>
             </svg>`
         },
         {
@@ -1664,21 +1517,10 @@
           svg: `
             <svg viewBox="0 0 480 300" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect width="480" height="300" fill="#061621"/>
-              <circle cx="370" cy="145" r="120" fill="#00e5ff" fill-opacity="0.14"/>
               <text x="28" y="42" fill="#00e5ff" font-family="Space Grotesk, sans-serif" font-size="8" font-weight="700" letter-spacing="1.6">EV MOBILITY MOBILE APP</text>
               <text x="28" y="98" fill="#ffffff" font-family="Syne, sans-serif" font-size="30" font-weight="800">VoltRoute</text>
-              <text x="28" y="128" fill="#94a3b8" font-family="Plus Jakarta Sans, sans-serif" font-size="10.5">Live EV supercharger discovery &amp;</text>
-              <text x="28" y="143" fill="#94a3b8" font-family="Plus Jakarta Sans, sans-serif" font-size="10.5">range-optimized route navigation.</text>
-              <rect x="28" y="170" width="142" height="36" rx="10" fill="rgba(0,229,255,0.12)" stroke="#00e5ff"/>
-              <text x="42" y="192" fill="#00e5ff" font-family="Space Grotesk, sans-serif" font-size="11" font-weight="700">⚡ 84% • 340 KM</text>
-              <!-- Mobile HUD Screen -->
               <g transform="translate(274, 34)">
                 <rect x="10" y="6" width="154" height="228" rx="24" fill="#0b1f2e" stroke="#00e5ff" stroke-width="1.5"/>
-                <path d="M36 164 C65 110, 105 155, 138 92" stroke="#00e5ff" stroke-width="3.5" stroke-linecap="round"/>
-                <circle cx="36" cy="164" r="6" fill="#22c55e"/>
-                <circle cx="138" cy="92" r="7" fill="#00e5ff"/>
-                <rect x="28" y="182" width="118" height="34" rx="10" fill="#00e5ff"/>
-                <text x="44" y="203" fill="#05060a" font-family="Space Grotesk, sans-serif" font-size="9.5" font-weight="800">START FAST ROUTE</text>
               </g>
             </svg>`
         },
@@ -1697,19 +1539,10 @@
           svg: `
             <svg viewBox="0 0 480 300" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect width="480" height="300" fill="#08241d"/>
-              <circle cx="365" cy="150" r="115" fill="#10b981" fill-opacity="0.16"/>
               <text x="28" y="42" fill="#34d399" font-family="Space Grotesk, sans-serif" font-size="8" font-weight="700" letter-spacing="1.6">SUSTAINABILITY UX PLATFORM</text>
               <text x="28" y="98" fill="#ecfdf5" font-family="Syne, sans-serif" font-size="30" font-weight="800">VerdiLoop</text>
-              <text x="28" y="128" fill="#a7f3d0" font-family="Plus Jakarta Sans, sans-serif" font-size="10.5">Circular recycling rewards &amp; live</text>
-              <text x="28" y="143" fill="#a7f3d0" font-family="Plus Jakarta Sans, sans-serif" font-size="10.5">eco-impact analytics interface.</text>
-              <!-- Circular Loop Gauge -->
               <g transform="translate(262, 38)">
                 <rect x="0" y="0" width="190" height="224" rx="20" fill="#0d3329" stroke="rgba(52,211,153,0.4)"/>
-                <circle cx="95" cy="96" r="48" stroke="rgba(255,255,255,0.12)" stroke-width="10"/>
-                <path d="M95 48 A48 48 0 1 1 52 118" stroke="#10b981" stroke-width="10" stroke-linecap="round"/>
-                <text x="72" y="102" fill="#ffffff" font-family="Syne, sans-serif" font-size="18" font-weight="800">78%</text>
-                <rect x="26" y="166" width="138" height="34" rx="10" fill="rgba(16,185,129,0.2)"/>
-                <text x="42" y="187" fill="#6ee7b7" font-family="Space Grotesk, sans-serif" font-size="9.5" font-weight="700">+1,240 GREEN PTS</text>
               </g>
             </svg>`
         },
@@ -1728,31 +1561,17 @@
           svg: `
             <svg viewBox="0 0 480 300" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect width="480" height="300" fill="#11131a"/>
-              <circle cx="360" cy="140" r="120" fill="#7c5cff" fill-opacity="0.16"/>
               <text x="28" y="42" fill="#a78bfa" font-family="Space Grotesk, sans-serif" font-size="8" font-weight="700" letter-spacing="1.6">WEB &amp; PRODUCT CONFIGURATOR</text>
               <text x="28" y="98" fill="#ffffff" font-family="Syne, sans-serif" font-size="29" font-weight="800">DeskSpace</text>
-              <text x="28" y="128" fill="#94a3b8" font-family="Plus Jakarta Sans, sans-serif" font-size="10.5">Ergonomic studio furniture &amp; modular</text>
-              <text x="28" y="143" fill="#94a3b8" font-family="Plus Jakarta Sans, sans-serif" font-size="10.5">workspace configurator storefront.</text>
-              <rect x="28" y="172" width="124" height="30" rx="15" fill="#7c5cff"/>
-              <text x="44" y="191" fill="#ffffff" font-family="Space Grotesk, sans-serif" font-size="8.5" font-weight="700">BUILD YOUR DESK</text>
-              <!-- Minimal Studio Monitor & Desk Setup Illustration -->
               <g transform="translate(248, 38)">
                 <rect x="0" y="0" width="204" height="224" rx="18" fill="#191c26" stroke="rgba(167,139,250,0.35)"/>
-                <rect x="44" y="44" width="116" height="72" rx="8" fill="#090b10" stroke="#a78bfa" stroke-width="2"/>
-                <rect x="94" y="116" width="16" height="24" fill="#64748b"/>
-                <rect x="74" y="138" width="56" height="5" rx="2.5" fill="#94a3b8"/>
-                <rect x="24" y="144" width="156" height="10" rx="4" fill="#d97706"/>
-                <rect x="34" y="154" width="8" height="44" fill="#475569"/>
-                <rect x="162" y="154" width="8" height="44" fill="#475569"/>
               </g>
             </svg>`
         }
       ];
 
-      // Store custom or loaded cover URLs per project index
       const resolvedCoverUrls = new Array(projects.length).fill(null);
 
-      // Build unified cover markup (attempts real image file first, falls back cleanly to bespoke SVG)
       function getCoverMarkup(idx, badgeText = '') {
         const p = projects[idx];
         const customUrl = resolvedCoverUrls[idx];
@@ -1760,20 +1579,13 @@
         return `
           <div class="cover-art-wrap">
             ${p.svg}
-            <img
-              class="real-cover-img"
-              src="${imgSrc}"
-              alt="${p.title} Cover"
-              onerror="this.style.display='none'"
-            />
+            <img class="real-cover-img" src="${imgSrc}" alt="${p.title} Cover" onerror="this.style.display='none'"/>
           </div>
           ${badgeText ? `<span class="fan-featured-pill">${badgeText}</span>` : ''}
         `;
       }
 
-      // =========================================================================
-      // 2. RENDER ALL 12 PROJECT CARDS IN THE SHOWCASE GRID
-      // =========================================================================
+      // 2. RENDER SHOWCASE GRID
       const projectsGrid = document.getElementById('projectsGrid');
       projectsGrid.innerHTML = projects.map((p, idx) => `
         <article class="spotlight-card reveal" data-index="${idx}" data-category="${p.category}" data-cursor="${p.cursor}">
@@ -1800,16 +1612,12 @@
         </article>
       `).join('');
 
-      // =========================================================================
-      // 3. RIGHT-SIDE HERO "SELECTED WORK (01 — 12)" FANNED COLLAGE LOGIC
-      // =========================================================================
+      // 3. FANNED HERO COLLAGE WITH AUTO-CYCLING ANIMATION
       const fanBack = document.getElementById('fanCardBack');
       const fanMid = document.getElementById('fanCardMid');
       const fanFront = document.getElementById('fanCardFront');
       const collageCounter = document.getElementById('collageCounter');
-      const shuffleCollageBtn = document.getElementById('shuffleCollageBtn');
 
-      // Default trio matching user screenshot aesthetic (04 Kumo Matcha, 09 StorySprout, 01 Scoop Parade)
       let fanTrio = [3, 8, 0];
 
       function renderFannedCollage() {
@@ -1826,20 +1634,17 @@
 
       renderFannedCollage();
 
-      shuffleCollageBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        // Cycle forward smoothly through all 12 projects
+      // Smooth Auto-Cycling Card Animation (every 3.5 seconds)
+      setInterval(() => {
         fanTrio = [
           (fanTrio[0] + 1) % projects.length,
           (fanTrio[1] + 1) % projects.length,
           (fanTrio[2] + 1) % projects.length
         ];
         renderFannedCollage();
-      });
+      }, 3500);
 
-      // =========================================================================
-      // 4. SINGLE-CARD & BULK COVER IMAGE UPLOADER (Auto-matches ZIP filenames!)
-      // =========================================================================
+      // 4. FILE UPLOADER FOR INDIVIDUAL CARDS
       function refreshCardVisual(idx) {
         const visual = document.getElementById(`cardVisual${idx}`);
         const p = projects[idx];
@@ -1881,27 +1686,7 @@
 
       document.querySelectorAll('.cover-file-input').forEach(bindSingleFileInput);
 
-      // Bulk folder/multiple file loader: matches 01_Scoop_Parade.jpg ... 12_DeskSpace.jpg automatically
-      const bulkCoverInput = document.getElementById('bulkCoverInput');
-      bulkCoverInput.addEventListener('change', (e) => {
-        const files = Array.from(e.target.files || []);
-        files.forEach((file) => {
-          const lowerName = file.name.toLowerCase();
-          const matchedIndex = projects.findIndex((p) => {
-            const numPrefix = p.id; // "01" .. "12"
-            const cleanTitle = p.title.toLowerCase().replace(/\s+/g, '');
-            const cleanFile = lowerName.replace(/[_\-\s]+/g, '');
-            return lowerName.startsWith(numPrefix) || cleanFile.includes(cleanTitle);
-          });
-          if (matchedIndex !== -1) {
-            applyCoverFile(matchedIndex, file);
-          }
-        });
-      });
-
-      // =========================================================================
-      // 5. SCROLL PROGRESS BAR & CAREER TIMELINE FILL
-      // =========================================================================
+      // 5. SCROLL PROGRESS & TIMELINE
       const scrollProgress = document.getElementById('scrollProgress');
       const timelineContainer = document.getElementById('timelineContainer');
       const timelineFill = document.getElementById('timelineFill');
@@ -1920,9 +1705,7 @@
         }
       });
 
-      // =========================================================================
-      // 6. INTERACTIVE HTML5 CANVAS CONSTELLATION NETWORK
-      // =========================================================================
+      // 6. CONSTELLATION CANVAS
       const canvas = document.getElementById('constellationCanvas');
       const ctx = canvas.getContext('2d');
       let width = canvas.width = window.innerWidth;
@@ -1989,9 +1772,7 @@
       }
       animateConstellation();
 
-      // =========================================================================
-      // 7. DYNAMIC SPOTLIGHT RING CURSOR + MAGNETIC PULL + CLICK SPARKLES
-      // =========================================================================
+      // 7. CURSOR & SPARKLES
       const cursorDot = document.getElementById('cursorDot');
       const cursorRing = document.getElementById('cursorRing');
 
@@ -2004,7 +1785,7 @@
         );
       });
 
-      function bindCursorHover(el) {
+      document.querySelectorAll('[data-cursor]').forEach((el) => {
         el.addEventListener('mouseenter', () => {
           cursorRing.textContent = el.getAttribute('data-cursor');
           cursorRing.classList.add('active-label');
@@ -2014,19 +1795,6 @@
           cursorRing.textContent = '';
           cursorRing.classList.remove('active-label');
           cursorDot.style.opacity = '1';
-        });
-      }
-      document.querySelectorAll('[data-cursor]').forEach(bindCursorHover);
-
-      document.querySelectorAll('.magnetic').forEach((btn) => {
-        btn.addEventListener('mousemove', (e) => {
-          const rect = btn.getBoundingClientRect();
-          const x = (e.clientX - rect.left - rect.width / 2) * 0.28;
-          const y = (e.clientY - rect.top - rect.height / 2) * 0.28;
-          btn.style.transform = `translate(${x}px, ${y}px)`;
-        });
-        btn.addEventListener('mouseleave', () => {
-          btn.style.transform = 'translate(0px, 0px)';
         });
       });
 
@@ -2047,9 +1815,7 @@
         }
       });
 
-      // =========================================================================
-      // 8. RADIAL SPOTLIGHT BORDER + 3D TILT PHYSICS ON ALL 12 CARDS
-      // =========================================================================
+      // 8. SPOTLIGHT CARDS TILT
       document.querySelectorAll('.spotlight-card').forEach((card) => {
         card.addEventListener('mousemove', (e) => {
           const rect = card.getBoundingClientRect();
@@ -2067,9 +1833,7 @@
         });
       });
 
-      // =========================================================================
-      // 9. CATEGORY FILTERING TABS
-      // =========================================================================
+      // 9. CATEGORY TABS
       const tabBtns = document.querySelectorAll('.tab-btn');
       const cards = document.querySelectorAll('.spotlight-card');
 
@@ -2095,13 +1859,10 @@
         });
       });
 
-      // =========================================================================
-      // 10. QUICK-INSPECT MODAL
-      // =========================================================================
+      // 10. MODAL
       const modal = document.getElementById('projectModal');
       const closeModalBtn = document.getElementById('closeModal');
       const modalCoverPreview = document.getElementById('modalCoverPreview');
-      const modalFileInput = document.getElementById('modalFileInput');
       let activeModalIndex = 0;
 
       function openProjectModal(idx) {
@@ -2121,18 +1882,12 @@
         });
       });
 
-      modalFileInput.addEventListener('change', (e) => {
-        applyCoverFile(activeModalIndex, e.target.files[0]);
-      });
-
       closeModalBtn.addEventListener('click', () => modal.classList.remove('open'));
       modal.addEventListener('click', (e) => {
         if (e.target === modal) modal.classList.remove('open');
       });
 
-      // =========================================================================
-      // 11. STAGGERED SCROLL REVEAL OBSERVER
-      // =========================================================================
+      // 11. SCROLL REVEAL
       const revealEls = document.querySelectorAll('.reveal');
       const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry, idx) => {
